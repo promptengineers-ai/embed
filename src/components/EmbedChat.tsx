@@ -1,4 +1,6 @@
 import {useState, useRef, useEffect} from 'react'; // Import the useState hook
+import marked from '../config/marked'; // Import the marked library
+import DOMPurify from "dompurify";
 import {
     MainButton, 
     ChatWindow,
@@ -33,6 +35,11 @@ interface ChatMessage {
     text: string;
 }
 
+const dummyMessage =`Check out this [link](https://www.example.com)
+\`\`\`javascript
+console.log('Hello, world!')
+\`\`\``;
+
 const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
     const chatInputRef = useRef<HTMLTextAreaElement>(null);
     const [isChatOpen, setChatOpen] = useState(false);
@@ -63,16 +70,21 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
         console.log('Settings button clicked');
     };
 
-    const handleSubmit = () => {
+    const parseAndSanitize = (content: string) => {
+        const parsedContent = marked.parse(content);
+        return DOMPurify.sanitize(parsedContent);
+    }
+
+    const handleSubmit = async () => {
         if (message.trim() === "") return; // Prevent sending empty messages
-    
-        const newMessage: ChatMessage = { sender: 'user', text: message };
+      
+        const newMessage: ChatMessage = { sender: 'user', text: parseAndSanitize(message) };
         setMessages([...messages, newMessage]);
-    
-        // Add a dummy bot response
-        const botResponse: ChatMessage = { sender: 'bot', text: "This is a dummy response." };
+      
+        // Simulate a bot response
+        const botResponse: ChatMessage = { sender: 'bot', text: parseAndSanitize(dummyMessage) };
         setMessages(prevMessages => [...prevMessages, botResponse]);
-    
+      
         setMessage("");
         chatInputRef.current?.focus();
     };
@@ -115,7 +127,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
                         <ChatContent>
                             {messages.slice().reverse().map((msg, index) => (
                                 <Message key={index} sender={msg.sender}>
-                                    {msg.text}
+                                    <div dangerouslySetInnerHTML={{ __html: msg.text }} />
                                 </Message>
                             ))}
                         </ChatContent>
