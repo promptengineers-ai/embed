@@ -1,6 +1,7 @@
 // Styled button component
 import styled from 'styled-components';
-import { FiSend } from 'react-icons/fi';
+import { FiSend, FiSettings } from 'react-icons/fi';
+import { FaUndo } from "react-icons/fa";
 import { SiOpenai } from "react-icons/si";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -48,10 +49,22 @@ export const ChatWindow = styled.div`
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
     font-family: sans-serif;
+`;
+
+export const ChatContent = styled.div`
+    flex-grow: 1;
+    overflow-y: auto;
+    flex-direction: column-reverse;
+    display: flex;
+    height: 100%;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 `;
 
 export const InputArea = styled.div`
@@ -76,6 +89,11 @@ export const ChatInput = styled.textarea`
         outline: none;
     }
     margin: 0;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 `;
 
 export const SubmitButton = styled.button`
@@ -95,6 +113,42 @@ export const SubmitButton = styled.button`
     }
 `;
 
+export const ControlButtons = styled.div`
+    display: flex;
+    justify-content: right; // Align buttons to the left
+    gap: 10px; // Spacing between buttons
+    margin-bottom: 10px; // Space between buttons and chat content
+`;
+
+export const ControlButton = styled.button`
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 25px; // Small button size
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+`;
+
+// Add some simple styling for messages
+export const Message = styled.div<{ sender: 'user' | 'bot' }>`
+    background-color: ${props => props.sender === 'user' ? '#007bff' : '#ECECEC'};
+    color: ${props => props.sender === 'user' ? 'white' : 'black'};
+    border-radius: 7px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    align-self: ${props => props.sender === 'user' ? 'flex-start' : 'flex-end'};
+    max-width: 85%;
+`;
+
 export const iconStyle = `
   font-size: 1.5em; // Adjust as needed
   line-height: 1; // Reset line-height to remove any extra space
@@ -102,3 +156,5 @@ export const iconStyle = `
 export const FiSendIcon = styled(FiSend)`${iconStyle}`;
 export const SiOpenaiIcon = styled(SiOpenai)`${iconStyle}`;
 export const AiOutlineCloseIcon = styled(AiOutlineClose)`${iconStyle}`;
+export const ClearIcon = styled(FaUndo)``; // Replace FiTrash with the actual icon you use for clear
+export const SettingsIcon = styled(FiSettings)``; // Replace FiSettings with the actual icon you use for settings
