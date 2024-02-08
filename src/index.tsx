@@ -1,19 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createRoot } from 'react-dom/client'; 
+import EmbedChat from './components/EmbedChat';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+declare global {
+  interface Window {
+    renderEmbedChat: (postion: string) => void;
+  }
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+window.renderEmbedChat = (position: string) => {
+  // Create a new div to hold the widget
+  const widgetContainer = document.createElement('div');
+  // Optionally, add a class for styling or leave as is for style via the imported module
+  widgetContainer.className = 'widget-container';
+  // Append the new div to the body
+  document.body.appendChild(widgetContainer);
+  
+  // Use React 18's createRoot API to render the widget inside the new div
+  const root = createRoot(widgetContainer);
+  root.render(<EmbedChat position={position} />);
+};
