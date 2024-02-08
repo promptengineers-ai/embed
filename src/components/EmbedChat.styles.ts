@@ -44,7 +44,7 @@ export const ChatWindow = styled.div`
     background-color: white;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 8px;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -56,8 +56,9 @@ export const ChatWindow = styled.div`
 export const ChatContent = styled.div`
     flex-grow: 1;
     overflow-y: auto;
-    flex-direction: column-reverse;
+    overflow-x: hidden;
     display: flex;
+    flex-direction: column-reverse;
     height: 100%;
 
     &::-webkit-scrollbar {
@@ -94,6 +95,10 @@ export const ChatInput = styled.textarea`
     }
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow: hidden;
+    &:focus {
+        overflow-y: auto;
+    }
 `;
 
 export const SubmitButton = styled.button`
@@ -136,6 +141,17 @@ export const ControlButton = styled.button`
     &:hover {
         background-color: #e0e0e0;
     }
+`;
+
+export const MessageContent = styled.div`
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto; // Scroll horizontally only if needed
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
 `;
 
 // Add some simple styling for messages

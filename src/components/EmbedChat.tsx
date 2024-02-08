@@ -9,6 +9,7 @@ import {
     InputArea, 
     SubmitButton, 
     FiSendIcon, 
+    MessageContent,
     SiOpenaiIcon,
     AiOutlineCloseIcon,
     Message,
@@ -43,13 +44,16 @@ console.log('Hello, world!')
 const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
     const chatInputRef = useRef<HTMLTextAreaElement>(null);
     const [isChatOpen, setChatOpen] = useState(false);
+    const [inputRows, setInputRows] = useState(1);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState<ChatMessage[]>([]);
 
     const toggleChat = () => setChatOpen(!isChatOpen);
 
     const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const currentRows = e.target.value.split('\n').length; // Split text by new lines
         setMessage(e.target.value);
+        setInputRows(Math.min(Math.max(currentRows, 1), 8)); // Ensure rows are between 1 and 8
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -75,6 +79,12 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
         return DOMPurify.sanitize(parsedContent);
     }
 
+    const submitCleanUp = () => {
+        setInputRows(1)
+        setMessage("");
+        chatInputRef.current?.focus();
+    }
+
     const handleSubmit = async () => {
         if (message.trim() === "") return; // Prevent sending empty messages
       
@@ -85,8 +95,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
         const botResponse: ChatMessage = { sender: 'bot', text: parseAndSanitize(dummyMessage) };
         setMessages(prevMessages => [...prevMessages, botResponse]);
       
-        setMessage("");
-        chatInputRef.current?.focus();
+        submitCleanUp();
     };
 
     useEffect(() => {
@@ -127,7 +136,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
                         <ChatContent>
                             {messages.slice().reverse().map((msg, index) => (
                                 <Message key={index} sender={msg.sender}>
-                                    <div dangerouslySetInnerHTML={{ __html: msg.text }} />
+                                    <MessageContent dangerouslySetInnerHTML={{ __html: msg.text }} />
                                 </Message>
                             ))}
                         </ChatContent>
@@ -135,7 +144,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
                     <InputArea>
                         <ChatInput
                             ref={chatInputRef}
-                            rows={1}
+                            rows={inputRows}
                             value={message}
                             onChange={handleMessageChange}
                             placeholder="Type your message here..."

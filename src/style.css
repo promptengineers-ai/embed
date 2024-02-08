@@ -1,0 +1,17 @@
+
+.container1{
+    height: 50px;
+
+    /* Just for presentation. Can be removed */
+    border: 1px solid red;
+
+    /* Hides content outside this container */
+    overflow: hidden;
+}
+
+.container2{
+    /* Height is significantly greater than the height of container#1 to hide
+       any possible scroll */
+    height: 100px;
+    overflow: auto;
+}

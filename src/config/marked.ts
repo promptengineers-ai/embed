@@ -7,7 +7,7 @@ renderer.codespan = function(text) {
 	return `<code>${text}</code>`;
 };
 renderer.paragraph = function(text) {
-    return `<p style="margin: 2px;">${text}</p>`;
+    return `<p style="margin: 10px 0px;">${text}</p>`;
 };
 renderer.code = function(code, language, isEscaped) {
 	// Check whether the given language is valid for highlight.js.
@@ -16,7 +16,7 @@ renderer.code = function(code, language, isEscaped) {
 	const highlighted = validLang ? hljs.highlight(code, { language }).value : code;
 	// Render the highlighted code with `hljs` class.
 	if (language) {
-		return `<pre class="hljs ${language}" style="margin: 2px;"><div style="background-color: black; color: white;"><p style="padding: 5px; margin: 0; display: flex; justify-content: space-between;">${language}<button class="copy-btn"><i class="fas fa-copy"></i></button></p></div><code class="hljs ${language}" style="padding: 10px;">${highlighted}</code></pre>`;
+		return `<pre class="hljs ${language} " style="margin: 2px;"><div style="background-color: black; color: white;"><p style="padding: 5px; margin: 0; display: flex; justify-content: space-between;">${language}<button class="copy-btn"><i class="fas fa-copy"></i></button></p></div><code class="hljs ${language} container2" style="padding: 10px;">${highlighted}</code></pre>`;
 	} else {
 		return `<pre style="padding: 0;"><code class="hljs ${language}" style="padding: 10px;">${highlighted}</code></pre>`;
 	}
