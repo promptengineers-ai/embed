@@ -7,7 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 
 interface StyledButtonProps {
     hoverColor?: string;
-    position: string;
+    position?: string;
 }
 
 export const MainButton = styled.div<StyledButtonProps>`
@@ -39,8 +39,8 @@ export const ChatWindow = styled.div`
     position: fixed;
     bottom: 75px; /* Adjust based on your button's size and desired location */
     right: 20px; /* Or 'left: 20px;' depending on your 'position' prop */
-    width: 350px; /* Or any other size */
-    height: 500px; /* Or any other size */
+    width: 380px; /* Or any other size */
+    height: 600px; /* Or any other size */
     background-color: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border-radius: 8px;
@@ -58,7 +58,7 @@ export const ChatContent = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: 100%;
 
     &::-webkit-scrollbar {
