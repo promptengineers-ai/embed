@@ -9,13 +9,16 @@ export const WelcomeArea = styled.div`
 export const WelcomeHeading = styled.h2`
     margin: 0;
     padding: 10px;
-    // Add any additional styles for the heading
+    color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    display: block;
 `;
 
 export const WelcomeParagraph = styled.p`
     margin: 0;
     padding: 10px;
-    // Add any additional styles for the paragraph
+    color: black;
 `;
 
 export const ButtonGrid = styled.div`
@@ -29,6 +32,7 @@ export const ButtonGrid = styled.div`
 
 export const GridButton = styled.button`
     padding: 10px;
+    color: black;
     border-radius: 4px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;

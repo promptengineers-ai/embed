@@ -82,7 +82,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
     const submitCleanUp = () => {
         setInputRows(1)
         setMessage("");
-        chatInputRef.current?.focus();
+        // chatInputRef.current?.focus();
     }
 
     const handleSubmit = async () => {
@@ -98,11 +98,11 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ hoverColor, position }) => {
         submitCleanUp();
     };
 
-    useEffect(() => {
-        if (isChatOpen) {
-          chatInputRef.current?.focus();
-        }
-      }, [isChatOpen]);
+    // useEffect(() => {
+    //     if (isChatOpen) {
+    //       chatInputRef.current?.focus();
+    //     }
+    //   }, [isChatOpen]);
 
     return (
         <>

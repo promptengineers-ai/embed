@@ -1,7 +1,7 @@
 {
   "name": "embed-chat",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "https://promptengineers-ai.github.io/embed-chat",
   "proxy": "http://localhost:3000",
   "private": true,
   "dependencies": {

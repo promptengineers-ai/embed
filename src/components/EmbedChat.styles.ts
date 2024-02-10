@@ -86,6 +86,7 @@ export const ChatInput = styled.textarea`
     border-radius: 4px;
     resize: none;
     font-family: sans-serif;
+    color: black;
     &:focus {
         outline: none;
     }
@@ -137,6 +138,7 @@ export const ControlButton = styled.button`
     cursor: pointer;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     transition: background-color 0.3s;
+    color: black;
 
     &:hover {
         background-color: #e0e0e0;
