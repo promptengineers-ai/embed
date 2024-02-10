@@ -42,7 +42,7 @@ export const ChatWindow = styled.div`
     width: 350px; /* Or any other size */
     height: 500px; /* Or any other size */
     background-color: white;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border-radius: 8px;
     padding: 10px;
     box-sizing: border-box;
