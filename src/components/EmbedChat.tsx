@@ -1,6 +1,4 @@
-import {useState, useRef, useEffect} from 'react'; // Import the useState hook
-import marked from '../config/marked'; // Import the marked library
-import DOMPurify from "dompurify";
+import {useState, useRef} from 'react';
 import {
     MainButton, 
     ChatWindow,
@@ -9,10 +7,8 @@ import {
     InputArea, 
     SubmitButton, 
     FiSendIcon, 
-    MessageContent,
     SiOpenaiIcon,
     AiOutlineCloseIcon,
-    Message,
     ClearIcon,
     SettingsIcon,
     ControlButton,
@@ -38,7 +34,6 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
         messages,
         chatboxRef,
         chatboxRefIsEmpty,
-        setMessages,
         chatPayload,
         setChatPayload,
         sendChatPayload,
@@ -58,29 +53,17 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
         }
     };
 
-    // Event handler for clearing messages
-    const handleClearMessages = () => {
-        setMessages([]);
-    };
-
     // Event handler for opening settings
     const handleOpenSettings = () => {
         // Placeholder function, replace with your actual logic
-        console.log('Settings button clicked');
+        alert('Opened settings');
     };
 
     const submitCleanUp = () => {
         setInputRows(1)
         setChatPayload({...chatPayload, query: ''});
-
         chatInputRef.current?.focus();
     }
-
-    // useEffect(() => {
-    //     if (isChatOpen) {
-    //       chatInputRef.current?.focus();
-    //     }
-    //   }, [isChatOpen]);
 
     return (
         <>

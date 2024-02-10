@@ -1,4 +1,15 @@
 import marked from '../config/marked';
+import { 
+  docLinkStyle,
+  tooltipStyle,
+  tooltipLinkStyle,
+  userMessageStyle, 
+  assistMessageStyle, 
+  userMessageTitleStyle, 
+  assistantMessageTitleStyle, 
+  docContentStyle
+} from '../config/message';
+import { setStyles } from './style';
 
 export const getLastUserIndex = (messages: {role: string, content: string}[]): number => {
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -23,18 +34,12 @@ export function constructDeleteMessageButton() {
 export function constructUserMessageDiv(messages: { role: string, content: string }[]) {
   let userMessageDiv = document.createElement('div');
   userMessageDiv.className = 'message user';
-  userMessageDiv.style.backgroundColor = 'rgb(0, 123, 255)';
-  userMessageDiv.style.borderRadius = '5px';
-  userMessageDiv.style.color = 'white';
-  userMessageDiv.style.padding = '5px 10px';
-  userMessageDiv.style.fontSize = '14px';
-  userMessageDiv.style.marginBottom = '10px';
+  setStyles(userMessageDiv, userMessageStyle);
 
   // Create and add the "👨‍💻 You:" message title
   let messageTitle = document.createElement('p');
   messageTitle.innerHTML = '👨‍💻 You:';
-  messageTitle.style.color = 'white';
-  messageTitle.style.fontSize = '18px';
+  setStyles(messageTitle, userMessageTitleStyle);
   userMessageDiv.appendChild(messageTitle);
 
   // Create a separate <p> for the parsed message content and append it to userMessageDiv
@@ -48,119 +53,21 @@ export function constructUserMessageDiv(messages: { role: string, content: strin
 export function constructAssistantMessageDiv() {
   let assistantMessageDiv = document.createElement('div');
   assistantMessageDiv.className = 'message assistant';
-  assistantMessageDiv.style.backgroundColor = 'rgb(236, 236, 236)';
-  assistantMessageDiv.style.color = 'black';
-  assistantMessageDiv.style.borderRadius = '5px';
-  assistantMessageDiv.style.padding = '5px 10px';
-  assistantMessageDiv.style.fontSize = '14px';
-  assistantMessageDiv.style.marginBottom = '10px';
+  setStyles(assistantMessageDiv, assistMessageStyle);
 
   // Create a container for the top row which will hold the title and toolContainer
   let topRowDiv = document.createElement('div');
-  topRowDiv.style.display = 'flex';
-  topRowDiv.style.alignItems = 'center';
-  topRowDiv.style.justifyContent = 'space-between';
+  setStyles(topRowDiv, assistantMessageTitleStyle);
   assistantMessageDiv.appendChild(topRowDiv);
 
   // Create and add the "🤖 Assistant:" message title
   let messageTitle = document.createElement('p');
   messageTitle.innerHTML = '🤖 Assistant:';
-  messageTitle.style.color = 'black';
-  messageTitle.style.fontSize = '18px';
-  messageTitle.style.margin = '0'; // Remove default margin
+  setStyles(messageTitle, assistantMessageTitleStyle);
   topRowDiv.appendChild(messageTitle);
-
-  // Create a container for the tool messages similar to #state-container
-  let toolContainer = document.createElement('div');
-  toolContainer.id = 'tool-container';  // Ensure unique ID or class if needed
-  toolContainer.style.border = '1px solid #A0AEC0';
-  toolContainer.style.color = '#A0AEC0';
-  toolContainer.style.padding = '2px 5px';
-  toolContainer.style.width = '200px';
-  toolContainer.style.borderRadius = '5px';
-  toolContainer.style.position = 'relative';
-  assistantMessageDiv.appendChild(toolContainer);
-
-  // Append toolContainer to the top row
-  topRowDiv.appendChild(toolContainer);
 
   // Create a separate <p> for the message content and append it to assistantMessageDiv
   let messageContent = document.createElement('p');
-  assistantMessageDiv.appendChild(messageContent);
-
-  // Create a div for displaying the current state (similar to #state-display)
-  let stateDisplay = document.createElement('div');
-  stateDisplay.id = 'state-display';
-  stateDisplay.textContent = 'Waiting for action...';  // Example text
-  toolContainer.appendChild(stateDisplay);
-
-  // Create a dropdown arrow (similar to #dropdown-arrow)
-  let dropdownArrow = document.createElement('div');
-  dropdownArrow.id = 'dropdown-arrow';
-  dropdownArrow.style.cursor = 'pointer';
-  dropdownArrow.style.position = 'absolute';
-  dropdownArrow.style.right = '5px';
-  dropdownArrow.style.top = '2px';
-  dropdownArrow.textContent = '▼';
-  toolContainer.appendChild(dropdownArrow);
-
-  // Create the log section (similar to #log)
-  let log = document.createElement('div');
-  log.id = 'log';
-  log.style.display = 'none';
-  log.style.borderTop = '1px solid #ddd';
-  log.style.maxHeight = '200px';
-  log.style.overflowY = 'auto';
-  toolContainer.appendChild(log);
-
-  // Event listener for the dropdown arrow
-  dropdownArrow.addEventListener('click', function() {
-    if (log.style.display === 'none') {
-      log.style.display = 'block';
-    } else {
-      log.style.display = 'none';
-    }
-  });
-
-  let spinner = constructSpinner();
-  spinner.style.display = 'none'; // hide the spinner initially
-  assistantMessageDiv.appendChild(spinner); 
-
-  return { assistantMessageDiv, spinner };
-}
-
-export function constructAssistantRetrievalMessageDiv() {
-  let assistantMessageDiv = document.createElement('div');
-  assistantMessageDiv.className = 'message assistant';
-  
-  // Create a container for the top row which will hold the title and toolContainer
-  let topRowDiv = document.createElement('div');
-  // topRowDiv.style.display = 'flex';
-  // topRowDiv.style.alignItems = 'center';
-  // topRowDiv.style.justifyContent = 'space-between';
-  assistantMessageDiv.appendChild(topRowDiv);
-
-  // Create and add the "🤖 Assistant:" message title
-  let messageTitle = document.createElement('p');
-  messageTitle.innerHTML = '🤖 Assistant:';
-  messageTitle.style.color = '#a0aec0';
-  messageTitle.style.fontSize = '18px';
-  messageTitle.style.margin = '0px 10px 0px 0px'; // Remove default margin
-  topRowDiv.appendChild(messageTitle);
-
-  let docsContainer = document.createElement('div');
-  docsContainer.id = 'docs-container'; // Ensure unique ID or class if needed
-  docsContainer.style.display = 'flex';
-  docsContainer.style.overflowX = 'auto';
-  docsContainer.style.whiteSpace = 'nowrap';
-  docsContainer.style.marginTop = '10px'; // Spacing from the previous elements
-  docsContainer.style.position = 'relative';
-  docsContainer.style.overflowY = 'hidden'; // Hide vertical scrollbar
-
-  topRowDiv.appendChild(docsContainer);
-
-  // Create a separate <p> for the message content and append it to assistantMessageDiv
-  let messageContent = document.createElement('div');
   assistantMessageDiv.appendChild(messageContent);
 
   let spinner = constructSpinner();
@@ -264,45 +171,24 @@ export function readStreamResponse(
         if (docsContainer) {
           // Create a link for each doc message
           let docLink = document.createElement('a');
-          docLink.style.display = 'inline-block';
-          docLink.style.border = '1px solid #A0AEC0';
-          docLink.style.marginRight = '10px'; // Spacing between doc links
-          docLink.style.padding = '2px';
-          docLink.style.fontSize = '12px';
-          docLink.style.borderRadius = '5px';
-          docLink.style.cursor = 'pointer';
+          setStyles(docLink, docLinkStyle);
 
           // Create a tooltip for the link
           let tooltip = document.createElement('span');
           
           // Create an anchor tag instead of a button
           let tooltipLink = document.createElement('a');
-          tooltipLink.style.display = 'block'; // Ensure it appears on its own line, adjust style as needed
-          tooltipLink.style.margin = '5px 0'; // Add some margin around the link for spacing
-          tooltipLink.textContent = 'View Document'; // Text for the link
-          tooltipLink.href = sourceURL; // Set the href to the document URL
-          tooltipLink.target = '_blank'; // Ensure it opens in a new tab
-          tooltipLink.style.textDecoration = 'underline'; // Optional: Style as a link
-          // Add more styles to tooltipLink as needed
+          setStyles(tooltipLink, tooltipLinkStyle);
+          tooltipLink.textContent = 'View Document';
+          tooltipLink.href = sourceURL;
+          tooltipLink.target = '_blank';
 
           // Append the button to the tooltip before setting its innerHTML with the content
           tooltip.appendChild(tooltipLink);
           tooltip.innerHTML += marked.parse(docMessage.page_content);
           
           // Tooltip styles
-          tooltip.style.visibility = 'hidden';
-          tooltip.style.position = 'absolute';
-          tooltip.style.backgroundColor = '#000';
-          tooltip.style.color = '#fff';
-          tooltip.style.padding = '5px';
-          tooltip.style.borderRadius = '5px';
-          tooltip.style.zIndex = '1';
-          tooltip.style.whiteSpace = 'normal';
-          tooltip.style.maxWidth = '300px';
-          tooltip.style.fontSize = '12px'; // Enable vertical scrolling within the tooltip
-          tooltip.style.overflowY = 'auto'; // Enable vertical scrolling within the tooltip
-          tooltip.style.maxHeight = '200px'; // Limit the tooltip's height
-          tooltip.style.marginTop = '15px'; // Wrap the tooltip text
+          setStyles(tooltip, tooltipStyle);
 
           // Show the tooltip on hover
           docLink.addEventListener('click', function(e) {
@@ -340,9 +226,7 @@ export function readStreamResponse(
           let docContent = document.createElement('p');
           let title = docMessage.metadata?.title || docMessage.page_content.slice(0, 20);
           docContent.textContent = title;
-          docContent.style.maxWidth = '200px'; // Set a max width for each doc link
-          docContent.style.overflow = 'hidden'; // Hide overflowed content
-          docContent.style.textOverflow = 'ellipsis'; // Add ellipsis for overflowed content
+          setStyles(docContent, docContentStyle);
           docLink.appendChild(docContent);
 
           // Append the doc link to the docs container
