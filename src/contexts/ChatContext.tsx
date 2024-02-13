@@ -30,7 +30,9 @@ const defaultChatContextValue: ChatContextType = {
 };
 
 const ChatContext = createContext(defaultChatContextValue);
-export default function ChatProvider({ children }: IContextProvider) {
+export default function ChatProvider({ children, botId }: IContextProvider & { botId: string }) {
+    console.log("botId in ChatProvider:", botId);
+
     const chatboxRef = useRef<HTMLInputElement | null>(null);
     const [chatboxRefIsEmpty, setChatboxRefIsEmpty] = useState(true);
     const userInputRef = useRef<HTMLInputElement | null>(null);
@@ -120,6 +122,7 @@ export default function ChatProvider({ children }: IContextProvider) {
         }
 
         chatClient.sendChatStreamMessage(
+            botId,
             payload, 
             updateCallback,
             () => setLoading(false)

@@ -24,7 +24,6 @@ import {
 import { useChatContext } from '../contexts/ChatContext';
 
 interface EmbedChatProps {
-    id: string;
     hoverColor?: string; // This prop is optional
     position?: string;
 }

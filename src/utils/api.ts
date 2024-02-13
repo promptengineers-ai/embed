@@ -20,6 +20,7 @@ export class ChatClient {
 	}
 
 	public async sendChatStreamMessage(
+		botId: string,
         payload: {
             model: string,
             temperature: number,
@@ -53,18 +54,13 @@ export class ChatClient {
         chatbox.appendChild(assistantMessageDiv);
         chatbox.scrollTop = chatbox.scrollHeight
 
-        fetch(`http://localhost:8000/api/v1/chat`, {
+        fetch(`http://localhost:8000/api/v1/bots/${botId}/chat`, {
 			method: 'POST',
-			headers: {
-				'x-api-key': '',
-				'Content-Type': 'application/json',
-			},
+			headers: {'Content-Type': 'application/json'},
 			signal: this.controller.signal,
 			body: JSON.stringify({
 				stream: true,
 				messages: payload.messages,
-				model: payload.model,
-				temperature: payload.temperature,
 			}),
 		})
 		.then(response => {
