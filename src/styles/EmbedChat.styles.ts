@@ -39,8 +39,8 @@ export const ChatWindow = styled.div`
     position: fixed;
     bottom: 75px; /* Adjust based on your button's size and desired location */
     right: 20px; /* Or 'left: 20px;' depending on your 'position' prop */
-    width: 380px; /* Or any other size */
-    height: 600px; /* Or any other size */
+    width: 300px; /* Or any other size */
+    height: 400px; /* Or any other size */
     background-color: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border-radius: 8px;
