@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+<h1 align="center">
+  🤖 Prompt Engineers AI - Embed 
+</h1>
+<p align="center">
+Sample Embeddable component for promptengineers.ai public agents.
+</p>
+<p align="center">
+  <a href="https://prompt-engineers.gitbook.io/documentation/embed"><img src="https://img.shields.io/badge/View%20Documentation-Docs-yellow"></a>
+  <a href="https://promptengineersai.slack.com/ssb/redirect"><img src="https://img.shields.io/badge/Join%20our%20community-Slack-blue"></a>
+</p>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
