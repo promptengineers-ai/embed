@@ -1,3 +1,4 @@
+import { log } from '../utils/log';
 import marked from '../config/marked';
 import { 
   docLinkStyle,
@@ -113,7 +114,7 @@ export function readStreamResponse(
     {done, value}: {done: boolean, value: Uint8Array}
   ): Promise<void> {
     if (done) {
-      console.log('Stream complete', messages)
+      log("utils.chat.readStreamResponse", messages, 'Messages');
       cb(messages);
       spinner.remove(); // remove spinner when stream is complete
       return Promise.resolve();  // return a resolved Promise

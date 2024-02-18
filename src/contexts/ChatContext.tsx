@@ -2,8 +2,7 @@ import { useContext, createContext, useState, useRef, useEffect, useCallback } f
 import { ChatClient } from '../utils/api';
 import { ChatContextType } from "../types";
 import { IContextProvider } from "../interfaces";
-
-const chatClient = new ChatClient();
+import { log } from "../utils/log";
 
 const defaultChatContextValue: ChatContextType = {
     loading: false,
@@ -30,8 +29,11 @@ const defaultChatContextValue: ChatContextType = {
 };
 
 const ChatContext = createContext(defaultChatContextValue);
-export default function ChatProvider({ children, botId }: IContextProvider & { botId: string }) {
-    console.log("botId in ChatProvider:", botId);
+export default function ChatProvider(
+    { children, apiHost, botId }: IContextProvider & { apiHost: string|undefined, botId: string }
+) {
+    log("contexts.ChatContext.ChatProvider", apiHost, 'API Host');
+    log("contexts.ChatContext.ChatProvider:", botId, 'Bot ID');
 
     const chatboxRef = useRef<HTMLInputElement | null>(null);
     const [chatboxRefIsEmpty, setChatboxRefIsEmpty] = useState(true);
@@ -72,13 +74,11 @@ export default function ChatProvider({ children, botId }: IContextProvider & { b
     }, []);
 
     function handleChatboxClick(e: MouseEvent) {
-        console.log('Chatbox button clicked');
         if ((e.target as HTMLElement).closest('.copy-btn')) {
-            console.log('Copy button clicked');
             // 2. Get the code content
             const preElement = (e.target as HTMLElement).closest('pre');
             const codeContent = preElement?.querySelector('code')?.innerText || '';
-            console.log(codeContent)
+            log("contexts.ChatContext.handleChatboxClick", codeContent, 'Code Content')
             // 3. Use Clipboard API to copy
             navigator.clipboard.writeText(codeContent).then(() => {
                 // Optional: Show a toast or feedback to user saying "Copied to clipboard!"
@@ -121,6 +121,7 @@ export default function ChatProvider({ children, botId }: IContextProvider & { b
             messages: updatedMessages,
         }
 
+        const chatClient = new ChatClient(apiHost);
         chatClient.sendChatStreamMessage(
             botId,
             payload, 
