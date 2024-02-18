@@ -3,6 +3,7 @@ import {
   constructAssistantMessageDiv,
   readStreamResponse,
 } from './chat';
+import { log } from '../utils/log';
 
 /**----------------------------------------------------------
  * Send a message to the server and get a response
@@ -11,6 +12,13 @@ import {
  */
 export class ChatClient {
 	private controller: AbortController | null = null;
+	private apiUrl: string;
+	private botId: string | undefined;
+
+	constructor(_apiUrl?: string, _botId?: string) {
+		this.apiUrl	= _apiUrl || 'https://api.promptengineers.ai';
+		this.botId = _botId;
+	}
 
 	// Method to abort the ongoing request
 	public abortRequest() {
@@ -54,7 +62,7 @@ export class ChatClient {
         chatbox.appendChild(assistantMessageDiv);
         chatbox.scrollTop = chatbox.scrollHeight
 
-        fetch(`http://localhost:8000/api/v1/bots/${botId}/chat`, {
+        fetch(`${this.apiUrl}/api/v1/bots/${this.botId || botId}/chat`, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			signal: this.controller.signal,
@@ -64,8 +72,6 @@ export class ChatClient {
 			}),
 		})
 		.then(response => {
-			console.log('Server Response:', response);
-
 			if (!response.ok) {
                 // Handle HTTP errors
                 response.json().then(errorData => {
@@ -77,7 +83,7 @@ export class ChatClient {
                 });
             } else {
                 // Handle successful response
-                console.log('Server Response:', response);
+                log('utils.api.ChatClient.sendChatStreamMessage', response);
                 readStreamResponse(
 					response, 
 					payload.messages, 
@@ -90,7 +96,7 @@ export class ChatClient {
 		})
 		.catch(error => {
 			if (error.name === 'AbortError') {
-				console.log('Request aborted by user');
+				log('utils.api.ChatClient.sendChatStreamMessage', 'Request aborted by user');
 				return;
 			} else {
 				console.error('Fetch error:', error);
