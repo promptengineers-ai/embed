@@ -36,7 +36,7 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
         chatPayload,
         setChatPayload,
         sendChatPayload,
-        resetMessages,
+        resetChat,
     } = useChatContext();
     const chatInputRef = useRef<HTMLTextAreaElement>(null);
     const [isChatOpen, setChatOpen] = useState(false);
@@ -73,7 +73,7 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
                 <ChatWindow>
                     <ControlButtons>
                         {messages.length > 0 && (
-                            <ControlButton onClick={resetMessages}>
+                            <ControlButton onClick={resetChat}>
                                 <ClearIcon />
                             </ControlButton>
                         )}
