@@ -118,7 +118,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                             onChange={(e) => setChatPayload({...chatPayload, query: e.target.value})}
                             placeholder="Type your message here..."
                             onKeyDown={handleKeyDown}
-                            style={{ fontSize: '18px' }}
+                            style={{ fontSize: '14px' }}
                         />
                         <SubmitButton 
                             onClick={() => sendChatPayload()}
