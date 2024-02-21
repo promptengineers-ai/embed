@@ -1,7 +1,7 @@
 
 export const userMessageStyle = (styles?: any) => {
     return {
-        backgroundColor: styles.btnColor || 'rgb(0, 123, 255)',
+        backgroundColor: styles?.btnColor || 'rgb(0, 123, 255)',
         borderRadius: '5px',
         color: 'white',
         padding: '5px 10px',
