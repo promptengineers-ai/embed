@@ -6,13 +6,16 @@ export const WelcomeArea = styled.div`
     // margin-bottom: auto;
 `;
 
-export const WelcomeHeading = styled.h2`
+export const WelcomeHeading = styled.h2<{
+    styles?: any;
+}>`
     margin: 0;
     padding: 10px;
     color: black;
     font-size: 1.5em;
     font-weight: bold;
     display: block;
+    font-family: ${ props => props.styles?.fontFamily };
 `;
 
 export const WelcomeParagraph = styled.p`

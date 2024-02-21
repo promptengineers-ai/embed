@@ -89,7 +89,30 @@
         <script src="http://localhost:3000/embed/static/js/bundle.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                renderEmbedChat("65d5076f5cbd8958b8151ec0", "https://dev-api.promptengineers.ai");
+                renderEmbedChat(
+                    "65d5076f5cbd8958b8151ec0", 
+                    "https://dev-api.promptengineers.ai",
+                    {
+                        btnColor: 'green',
+                        hoverColor: 'red',
+                        welcome: {
+                            heading: {
+                                fontFamily: 'Arial, Helvetica, sans-serif'
+                            }
+                        }
+                    },
+                    {
+                        heading: 'Search Engine Agent',
+                        headingFont: '"Times New Roman", Times, serif',
+                        paragraph: 'Access to search engine on http://192.241.207.12:8080',
+                        buttons: [
+                            {label: 'FAQs', href: 'https://example.com'},
+                            {label: 'Contact Us', href: 'https://example.com/contact-us'},
+                            {label: 'Support', href: 'https://example.com/support'},
+                            {label: 'Feedback', href: 'https://example.com/feedback'},
+                        ]
+                    }
+                );
             });
         </script>
     </body>

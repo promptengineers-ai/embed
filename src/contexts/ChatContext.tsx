@@ -21,7 +21,6 @@ const defaultChatContextValue: ChatContextType = {
         functions: [] 
     },
     setChatPayload: () => {},
-    resetMessages: () => {}, // Default value
     handleChatboxClick: () => {}, // Default value
     chatboxRefIsEmpty: true,
     setChatboxRefIsEmpty: () => {}, // Default value
@@ -30,10 +29,8 @@ const defaultChatContextValue: ChatContextType = {
 
 const ChatContext = createContext(defaultChatContextValue);
 export default function ChatProvider(
-    { children, apiHost, botId }: IContextProvider & { apiHost: string|undefined, botId: string }
+    { children, apiHost, botId, styles }: IContextProvider & { apiHost: string|undefined, botId: string, styles: any }
 ) {
-    log("contexts.ChatContext.ChatProvider", apiHost, 'API Host');
-    log("contexts.ChatContext.ChatProvider:", botId, 'Bot ID');
 
     const chatboxRef = useRef<HTMLInputElement | null>(null);
     const [chatboxRefIsEmpty, setChatboxRefIsEmpty] = useState(true);
@@ -53,24 +50,19 @@ export default function ChatProvider(
         {role: 'system', content: ''},
     ]);
 
-    function resetMessages() {
-        setMessages([
-            {role: 'system', content: ''},
-        ]);  
-        setChatboxRefIsEmpty(true);
-    };
-
     const resetChat = useCallback(() => {
-        setChatboxRefIsEmpty(true);
-        while (chatboxRef.current?.firstChild) {
-            chatboxRef.current.removeChild(chatboxRef.current.firstChild);
+        if (chatboxRefIsEmpty) {
+            setChatboxRefIsEmpty(true);
+            while (chatboxRef.current?.firstChild) {
+                chatboxRef.current.removeChild(chatboxRef.current.firstChild);
+            }
+            setMessages([{ role: 'system', content: '' }]);
+            setChatPayload(prev => ({
+                ...prev,
+                _id: '',
+                functions: [],
+            }));
         }
-        setMessages([{ role: 'system', content: '' }]);
-        setChatPayload(prev => ({
-            ...prev,
-            _id: '',
-            functions: [],
-        }));
     }, []);
 
     function handleChatboxClick(e: MouseEvent) {
@@ -121,7 +113,7 @@ export default function ChatProvider(
             messages: updatedMessages,
         }
 
-        const chatClient = new ChatClient(apiHost);
+        const chatClient = new ChatClient(apiHost, '', styles);
         chatClient.sendChatStreamMessage(
             botId,
             payload, 
@@ -144,13 +136,13 @@ export default function ChatProvider(
         };
     }, [messages, userInputRef]);
 
-    useEffect(() => {
-		if (messages.length > 1) {
-			setChatboxRefIsEmpty(false);
-		} else {
-			setChatboxRefIsEmpty(true);
-		}
-	}, [messages]);
+    // useEffect(() => {
+	// 	if (messages.length > 1) {
+	// 		setChatboxRefIsEmpty(false);
+	// 	} else {
+	// 		setChatboxRefIsEmpty(true);
+	// 	}
+	// }, [messages]);
 
     return (
         <ChatContext.Provider
@@ -162,7 +154,6 @@ export default function ChatProvider(
                 resetChat,
                 messages,
                 setMessages,
-                resetMessages,
                 chatPayload,
                 setChatPayload,
                 sendChatPayload,

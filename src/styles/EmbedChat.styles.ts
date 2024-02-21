@@ -8,13 +8,14 @@ import { AiOutlineClose } from "react-icons/ai";
 interface StyledButtonProps {
     hoverColor?: string;
     position?: string;
+    styles?: any;
 }
 
 export const MainButton = styled.div<StyledButtonProps>`
     position: fixed;
     bottom: 20px;
-    ${props => props.position || 'right'}: 20px;
-    background-color: #007bff;
+    ${props => props.styles?.position || 'right'}: 20px;
+    background-color: ${ props => props.styles?.btnColor || '#007bff'};
     color: white;
     display: flex; // Use flexbox to center content
     align-items: center; // Center vertically
@@ -31,7 +32,7 @@ export const MainButton = styled.div<StyledButtonProps>`
     px; // Set a fixed height to form a circle
 
     &:hover {
-        background-color: ${props => props.hoverColor || '#6f42c1'};
+        background-color: ${props => props.styles?.hoverColor || '#6f42c1'};
     }
 `;
 
@@ -39,8 +40,8 @@ export const ChatWindow = styled.div`
     position: fixed;
     bottom: 75px; /* Adjust based on your button's size and desired location */
     right: 20px; /* Or 'left: 20px;' depending on your 'position' prop */
-    width: 300px; /* Or any other size */
-    height: 400px; /* Or any other size */
+    width: 340px; /* Or any other size */
+    height: 500px; /* Or any other size */
     background-color: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border-radius: 8px;
@@ -102,17 +103,17 @@ export const ChatInput = styled.textarea`
     }
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<StyledButtonProps>`
     background: none;
     border: none;
     cursor: pointer;
-    color: #007bff;
+    color: ${ props => props.styles?.btnColor || '#007bff'};
     display: flex;
     align-items: center; // Align the icon inside the button
     justify-content: center; // Center the icon horizontally
     padding: 0 8px; // Adjust padding as needed
     &:hover {
-        color: #0056b3;
+        color: ${props => props.styles?.hoverColor || '#6f42c1'};
     }
     &:focus {
         outline: none;

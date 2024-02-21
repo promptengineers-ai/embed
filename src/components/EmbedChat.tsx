@@ -22,13 +22,14 @@ import {
     GridButton,
 } from '../styles/Welcome.styles';
 import { useChatContext } from '../contexts/ChatContext';
+import { Welcome } from '../types';
 
 interface EmbedChatProps {
-    hoverColor?: string; // This prop is optional
-    position?: string;
+    styles?: any;
+    welcome?: Welcome;
 }
 
-const EmbedChat: React.FC<EmbedChatProps> = () => {
+const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
     const {
         messages,
         chatboxRef,
@@ -64,9 +65,20 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
         chatInputRef.current?.focus();
     }
 
+    const calculatedWelcome = {
+        buttons: [
+            {label: 'FAQs', href: 'https://example.com'},
+            {label: 'Contact Us', href: 'https://example.com/contact-us'},
+            {label: 'Support', href: 'https://example.com/support'},
+            {label: 'Feedback', href: 'https://example.com/feedback'},
+        ], 
+        ...welcome,
+
+    }
+
     return (
         <>
-            <MainButton onClick={toggleChat}>
+            <MainButton onClick={toggleChat} styles={styles}>
                 {isChatOpen ? <AiOutlineCloseIcon /> : <SiOpenaiIcon />}
             </MainButton>
             {isChatOpen && (
@@ -84,13 +96,16 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
                     <ChatContent id="chatbox" ref={chatboxRef}>
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
-                                <WelcomeHeading>Welcome to AI Chat!</WelcomeHeading>
-                                <WelcomeParagraph>How can we help you today?</WelcomeParagraph>
+                                <WelcomeHeading>{calculatedWelcome.heading || 'Prompt Engineers Chat'}</WelcomeHeading>
+                                <WelcomeParagraph>{calculatedWelcome.paragraph || 'How can I assist you today?'}</WelcomeParagraph>
                                 <ButtonGrid>
-                                    <GridButton>FAQs</GridButton>
-                                    <GridButton>Contact Us</GridButton>
-                                    <GridButton>Support</GridButton>
-                                    <GridButton>Feedback</GridButton>
+                                    {calculatedWelcome.buttons?.map((item: any, index: number) => {
+                                        return (
+                                            // <a key={index} href={item.href}>
+                                                <GridButton onClick={()=> alert('Not implemented')}>{item.label}</GridButton>
+                                            // </a>
+                                        )
+                                    })}
                                 </ButtonGrid>
                             </WelcomeArea>
                         )}
@@ -103,8 +118,12 @@ const EmbedChat: React.FC<EmbedChatProps> = () => {
                             onChange={(e) => setChatPayload({...chatPayload, query: e.target.value})}
                             placeholder="Type your message here..."
                             onKeyDown={handleKeyDown}
+                            style={{ fontSize: '18px' }}
                         />
-                        <SubmitButton onClick={() => sendChatPayload()}>
+                        <SubmitButton 
+                            onClick={() => sendChatPayload()}
+                            styles={styles}
+                        >
                             <FiSendIcon />
                         </SubmitButton>
                     </InputArea>

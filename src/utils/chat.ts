@@ -32,10 +32,10 @@ export function constructDeleteMessageButton() {
   return deleteButton;
 }
 
-export function constructUserMessageDiv(messages: { role: string, content: string }[]) {
+export function constructUserMessageDiv(messages: { role: string, content: string }[], styles: any) {
   let userMessageDiv = document.createElement('div');
   userMessageDiv.className = 'message user';
-  setStyles(userMessageDiv, userMessageStyle);
+  setStyles(userMessageDiv, userMessageStyle(styles));
 
   // Create and add the "👨‍💻 You:" message title
   let messageTitle = document.createElement('p');

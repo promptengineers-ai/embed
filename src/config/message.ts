@@ -1,11 +1,13 @@
 
-export const userMessageStyle = {
-    backgroundColor: 'rgb(0, 123, 255)',
-    borderRadius: '5px',
-    color: 'white',
-    padding: '5px 10px',
-    fontSize: '14px',
-    marginBottom: '10px',
+export const userMessageStyle = (styles?: any) => {
+    return {
+        backgroundColor: styles.btnColor || 'rgb(0, 123, 255)',
+        borderRadius: '5px',
+        color: 'white',
+        padding: '5px 10px',
+        fontSize: '14px',
+        marginBottom: '10px',
+    }
 }
 
 export const assistMessageStyle = {

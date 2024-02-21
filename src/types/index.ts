@@ -15,9 +15,14 @@ export type ChatContextType = {
         functions: string[];
     };
     setChatPayload: (payload: any) => void;
-    resetMessages: () => void; // This seems to be missing from your type but used in the Provider
     handleChatboxClick: (e: MouseEvent) => void;
     chatboxRefIsEmpty: boolean;
     setChatboxRefIsEmpty: (isEmpty: boolean) => void;
     resetChat: () => void;
 };
+
+export type Welcome = {
+    heading: string,
+    paragraph: string,
+    buttons: {label: string, href: string}[]
+}

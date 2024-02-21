@@ -1,14 +1,25 @@
 import { createRoot } from 'react-dom/client';
 import Embeddable from './components/Embeddable';
 import { log } from './utils/log';
+import { Welcome } from './types';
 
 declare global {
 	interface Window {
-		renderEmbedChat: (botId: string, apiHost?: string) => void;
+		renderEmbedChat: (
+            botId: string, 
+            apiHost?: string, 
+            styles?: any,
+            welcome?: Welcome
+        ) => void;
 	}
 }
 
-window.renderEmbedChat = (botId: string, apiHost?: string) => {
+window.renderEmbedChat = (
+    botId: string, 
+    apiHost?: string, 
+    styles?: any,
+    welcome?: Welcome
+) => {
     log("index.window.renderEmbedChat", botId, 'Bot ID:');
     // Create a new div to hold the widget
     const widgetContainer = document.createElement('div');
@@ -19,5 +30,12 @@ window.renderEmbedChat = (botId: string, apiHost?: string) => {
     
     // Use React 18's createRoot API to render the widget inside the new div
     const root = createRoot(widgetContainer);
-    root.render(<Embeddable apiHost={apiHost} botId={botId} />);
+    root.render(
+        <Embeddable 
+            apiHost={apiHost} 
+            botId={botId} 
+            styles={styles}
+            welcome={welcome}
+        />
+    );
 };
