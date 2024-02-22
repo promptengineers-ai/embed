@@ -16,7 +16,7 @@ renderer.code = function(code, language, isEscaped) {
 	const highlighted = validLang ? hljs.highlight(code, { language }).value : code;
 	// Render the highlighted code with `hljs` class.
 	if (language) {
-		return `<pre class="hljs language-${language}" style="margin: 2px;"><div style="background-color: black; color: white;"><p style="padding: 5px; margin: 0; display: flex; justify-content: space-between;">${language}<button class="copy-btn"><i class="fas fa-copy"></i></button></p></div><code class="hljs ${language} container2" style="padding: 10px;">${highlighted}</code></pre>`;
+		return `<pre style="margin: 2px;"><div style="background-color: black; color: white;"><p style="padding: 5px; margin: 0; display: flex; justify-content: space-between;">${language}<button class="copy-btn"><i class="fas fa-copy"></i></button></p></div><code class="hljs language-${language} container2" style="padding: 10px;">${highlighted}</code></pre>`;
 	} else {
 		return `<pre style="padding: 0;"><code class="hljs language-${language}" style="padding: 10px;">${highlighted}</code></pre>`;
 	}
