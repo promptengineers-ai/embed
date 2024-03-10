@@ -96,7 +96,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                 )}
             </MainButton>
             {isChatOpen && (
-                <ChatWindow>
+                <ChatWindow theme={theme}>
                     <ControlButtons>
                         {messages.length > 0 && (
                             <ControlButton onClick={resetChat}>

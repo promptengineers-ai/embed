@@ -6,9 +6,9 @@ import { FiSend, FiSettings } from 'react-icons/fi';
 import { FaUndo } from "react-icons/fa";
 import { SiOpenai } from "react-icons/si";
 import { AiOutlineClose } from "react-icons/ai";
-import { StyledButtonProps } from '../interfaces';
+import { ThemeProps } from "../interfaces";
 
-export const MainButton = styled.div<StyledButtonProps>`
+export const MainButton = styled.div<ThemeProps>`
     position: fixed;
     bottom: 20px;
     ${(props) => props.theme?.position || "right"}: 20px;
@@ -36,16 +36,25 @@ export const MainButton = styled.div<StyledButtonProps>`
     }
 `;
 
-export const ChatWindow = styled.div`
+export const ChatWindow = styled.div<ThemeProps>`
     position: fixed;
     bottom: 75px; /* Adjust based on your button's size and desired location */
     right: 20px; /* Or 'left: 20px;' depending on your 'position' prop */
-    width: 340px; /* Or any other size */
-    height: 500px; /* Or any other size */
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 10px;
+    width: ${(props) =>
+        props.theme?.chatWindow?.width ||
+        theme.chatWindow.width}; /* Or any other size */
+    height: ${(props) =>
+        props.theme?.chatWindow?.height ||
+        theme.chatWindow.height}; /* Or any other size */
+    background-color: ${(props) =>
+        props.theme?.chatWindow?.backgroundColor ||
+        theme.chatWindow.backgroundColor};
+    box-shadow: ${(props) =>
+        props.theme?.chatWindow?.boxShadow || theme.chatWindow.boxShadow};
+    border-radius: ${(props) =>
+        props.theme?.chatWindow?.borderRadius || theme.chatWindow.borderRadius};
+    padding: ${(props) =>
+        props.theme?.chatWindow?.padding || theme.chatWindow.padding};
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -112,19 +121,22 @@ export const ChatInput = styled.textarea`
     }
 `;
 
-export const SubmitButton = styled.button<StyledButtonProps>`
+export const SubmitButton = styled.button<ThemeProps>`
     background: none;
     border: none;
     cursor: pointer;
     color: ${(props) =>
-        props.theme?.button?.backgroundColor || theme.button.backgroundColor};
+        props.theme?.chatWindow?.submitButton?.backgroundColor || theme.chatWindow.submitButton.backgroundColor};
     display: flex;
     align-items: center; // Align the icon inside the button
     justify-content: center; // Center the icon horizontally
-    padding: 0 8px; // Adjust padding as needed
+    padding: ${(props) =>
+        props.theme?.chatWindow?.submitButton?.padding ||
+        theme.chatWindow.submitButton.padding};
     &:hover {
         color: ${(props) =>
-            props.theme?.button?.hoverColor || theme.button.hoverColor};
+            props.theme?.chatWindow?.submitButton?.hoverColor ||
+            theme.chatWindow.submitButton.hoverColor};
     }
     &:focus {
         outline: none;

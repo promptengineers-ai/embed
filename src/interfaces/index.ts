@@ -4,9 +4,7 @@ export interface IContextProvider {
     children: React.ReactNode;
 }
 
-export interface StyledButtonProps {
-    hoverColor?: string;
-    position?: string;
+export interface ThemeProps {
     theme?: any;
 }
 
