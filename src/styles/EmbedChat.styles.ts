@@ -149,8 +149,8 @@ export const SubmitButton = styled.button<ThemeProps>`
 export const ControlButtons = styled.div`
     display: flex;
     justify-content: right; // Align buttons to the left
-    gap: 10px; // Spacing between buttons
-    margin-bottom: 10px; // Space between buttons and chat content
+    gap: 5px; // Spacing between buttons
+    margin-bottom: 5px; // Space between buttons and chat content
 `;
 
 export const ControlButton = styled.button<ThemeProps>`

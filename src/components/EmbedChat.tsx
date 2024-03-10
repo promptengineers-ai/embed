@@ -96,22 +96,25 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
             </MainButton>
             {isChatOpen && (
                 <ChatWindow theme={theme}>
-                    <ControlButtons>
-                        {messages.length > 0 && (
-                            <ControlButton onClick={resetChat}>
-                                <ClearIcon />
-                            </ControlButton>
-                        )}
-                        <ControlButton onClick={handleOpenSettings}>
-                            <SettingsIcon fontSize={'20px'} />
-                        </ControlButton>
-                        {window.innerWidth < 768 && (
-                            <ControlButton onClick={toggleChat} theme={theme}>
-                                <AiOutlineCloseIcon />
-                            </ControlButton>
-                        )}
-                    </ControlButtons>
                     <ChatContent id="chatbox" ref={chatboxRef}>
+                        <ControlButtons>
+                            {messages.length > 0 && (
+                                <ControlButton onClick={resetChat}>
+                                    <ClearIcon />
+                                </ControlButton>
+                            )}
+                            <ControlButton onClick={handleOpenSettings}>
+                                <SettingsIcon fontSize={"20px"} />
+                            </ControlButton>
+                            {window.innerWidth < 768 && (
+                                <ControlButton
+                                    onClick={toggleChat}
+                                    theme={theme}
+                                >
+                                    <AiOutlineCloseIcon />
+                                </ControlButton>
+                            )}
+                        </ControlButtons>
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
                                 <WelcomeHeading>

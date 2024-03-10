@@ -1,5 +1,7 @@
 import defaultTheme from './theme';
 
+const messageTitleMargin = "0"
+
 export const userMessageStyle = (theme?: any) => {
     return {
         backgroundColor:
@@ -35,15 +37,16 @@ export const topRowDivStyle = {
 }
 
 export const userMessageTitleStyle = {
-    color: 'white',
-    fontSize: '18px',
-}
+    color: "white",
+    fontSize: "18px",
+    margin: "5px 0px",
+};
 
 export const assistantMessageTitleStyle = {
-    color: 'black',
-    fontSize: '18px',
-    margin: '0',
-}
+    color: "black",
+    fontSize: "18px",
+    margin: "5px 0px",
+};
 
 export const docLinkStyle = {
     display: 'inline-block',
