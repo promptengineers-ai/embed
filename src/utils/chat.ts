@@ -12,6 +12,18 @@ import {
 } from '../config/message';
 import { setStyles } from './style';
 
+const constructBubbleMessage = (sender: string, src?: string, label?: string) => {
+
+  const image = (src: string) => {
+    return `<img src=${src} alt="${sender} avatar" />`
+  }
+
+  if (sender === "user")
+      return `${src ? image(src) : "👨‍💻 "} ${label ? label : "You:"}`;
+
+  return `${src ? image(src) : "🤖 "} ${label ? label : "Assistant:"}`;
+}
+
 export const getLastUserIndex = (messages: {role: string, content: string}[]): number => {
   for (let i = messages.length - 1; i >= 0; i--) {
     if (messages[i].role === 'user') {
@@ -42,7 +54,7 @@ export function constructUserMessageDiv(
 
     // Create and add the "👨‍💻 You:" message title
     let messageTitle = document.createElement("p");
-    messageTitle.innerHTML = "👨‍💻 You:";
+    messageTitle.innerHTML = constructBubbleMessage("user");
     setStyles(messageTitle, userMessageTitleStyle);
     userMessageDiv.appendChild(messageTitle);
 
@@ -68,7 +80,7 @@ export function constructAssistantMessageDiv(theme: any) {
 
     // Create and add the "🤖 Assistant:" message title
     let messageTitle = document.createElement("p");
-    messageTitle.innerHTML = "🤖 Assistant:";
+    messageTitle.innerHTML = constructBubbleMessage("assistant");
     setStyles(messageTitle, assistantMessageTitleStyle);
     topRowDiv.appendChild(messageTitle);
 

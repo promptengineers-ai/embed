@@ -103,8 +103,13 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                             </ControlButton>
                         )}
                         <ControlButton onClick={handleOpenSettings}>
-                            <SettingsIcon />
+                            <SettingsIcon fontSize={'20px'} />
                         </ControlButton>
+                        {window.innerWidth < 768 && (
+                            <ControlButton onClick={toggleChat} theme={theme}>
+                                <AiOutlineCloseIcon />
+                            </ControlButton>
+                        )}
                     </ControlButtons>
                     <ChatContent id="chatbox" ref={chatboxRef}>
                         {chatboxRefIsEmpty && (
@@ -122,6 +127,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                                         (item: any, index: number) => {
                                             return (
                                                 <GridButton
+                                                    theme={theme}
                                                     key={index}
                                                     onClick={() =>
                                                         window.open(

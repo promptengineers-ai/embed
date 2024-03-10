@@ -2,6 +2,10 @@ const primaryColor = "#000";
 const secondaryColor = "#6f42c1";
 const tertiaryColor = "#ececec";
 
+const boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)";
+const boxShadowChatWindow = "0 4px 10px rgba(0, 0, 0, 0.2)";
+const boxShadowChatWindowButton = "0 1px 2px rgba(0, 0, 0, 0.2)";
+
 const theme = {
     button: {
         backgroundColor: primaryColor,
@@ -13,7 +17,7 @@ const theme = {
         width: "40px",
         bottom: "20px",
         position: "right",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        boxShadow: boxShadow,
         icon: {
             padding: "8px",
             height: "40px",
@@ -21,7 +25,6 @@ const theme = {
         },
     },
     chatWindow: {
-        showTitle: true, // show/hide the title bar
         title: "Prompt Engineers Bot",
         titleAvatarSrc:
             "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
@@ -47,15 +50,27 @@ const theme = {
         height: "500px",
         width: "340px",
         backgroundColor: "#ffffff",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+        boxShadow: boxShadowChatWindow,
         borderRadius: "8px",
         padding: "10px",
-        botMessage: {
-            backgroundColor: tertiaryColor,
-            textColor: "#000",
-            showAvatar: true,
-            avatarSrc:
-                "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
+        controlButton: {
+            backgroundColor: "#f0f0f0",
+            border: "none",
+            borderRadius: "20%",
+            width: "30px",
+            height: "30px",
+            hoverColor: "#e0e0e0",
+            boxShadow: boxShadowChatWindowButton,
+            color: "black",
+        },
+        gridButton: {
+            padding: "10px",
+            color: "black",
+            borderRadius: "2px",
+            border: "none",
+            backgroundColor: "#f0f0f0",
+            hoverColor: "#e0e0e0",
+            boxShadow: boxShadowChatWindowButton,
         },
         userMessage: {
             backgroundColor: primaryColor,
@@ -63,6 +78,13 @@ const theme = {
             showAvatar: true,
             avatarSrc:
                 "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
+        },
+        botMessage: {
+            backgroundColor: tertiaryColor,
+            textColor: "#000",
+            showAvatar: true,
+            avatarSrc:
+                "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
         },
         chatInput: {
             placeholder: "Type your question here...",

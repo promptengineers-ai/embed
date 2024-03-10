@@ -62,14 +62,14 @@ export const ChatWindow = styled.div<ThemeProps>`
     justify-content: space-between;
     font-family: sans-serif;
 
-    // /* Media query for mobile devices */
-    // @media (max-width: 768px) {
-    //     bottom: 0;
-    //     right: 0;
-    //     width: 100vw; /* 100% of viewport width */
-    //     height: 100vh; /* 100% of viewport height */
-    //     border-radius: 0; /* Optional: remove border radius for full screen mode */
-    // }
+    /* Media query for mobile devices */
+    @media (max-width: 768px) {
+        bottom: 0;
+        right: 0;
+        width: 100vw; /* 100% of viewport width */
+        height: 100vh; /* 100% of viewport height */
+        border-radius: 0; /* Optional: remove border radius for full screen mode */
+    }
 `;
 
 export const ChatContent = styled.div`
@@ -153,22 +153,37 @@ export const ControlButtons = styled.div`
     margin-bottom: 10px; // Space between buttons and chat content
 `;
 
-export const ControlButton = styled.button`
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 50%;
-    width: 25px; // Small button size
-    height: 25px;
+export const ControlButton = styled.button<ThemeProps>`
+    background-color: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.backgroundColor ||
+        theme.chatWindow.controlButton.backgroundColor};
+    border: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.border ||
+        theme.chatWindow.controlButton.border};
+    border-radius: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.borderRadius ||
+        theme.chatWindow.controlButton.borderRadius};
+    width: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.width ||
+        theme.chatWindow.controlButton.width};
+    height: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.height ||
+        theme.chatWindow.controlButton.height};
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.boxShadow ||
+        theme.chatWindow.controlButton.boxShadow};
     transition: background-color 0.3s;
-    color: black;
-
+    color: ${(props) =>
+        props.theme?.chatWindow?.controlButton?.color ||
+        theme.chatWindow.controlButton.color};
     &:hover {
-        background-color: #e0e0e0;
+        background-color: ${(props) =>
+            props.theme?.chatWindow?.controlButton?.hoverColor ||
+            theme.chatWindow.controlButton.hoverColor};
     }
 `;
 
