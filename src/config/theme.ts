@@ -64,10 +64,11 @@ const theme = {
             avatarSrc:
                 "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
         },
-        textInput: {
-            placeholder: "Type your question",
+        chatInput: {
+            placeholder: "Type your question here...",
             backgroundColor: "#ffffff",
             textColor: "#303235",
+            fontSize: "14px",
         },
         submitButton: {
             backgroundColor: primaryColor,

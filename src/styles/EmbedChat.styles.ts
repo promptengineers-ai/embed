@@ -98,13 +98,16 @@ export const InputArea = styled.div`
     background: white;
 `;
 
-export const ChatInput = styled.textarea`
+export const ChatInput = styled.textarea<ThemeProps>`
     flex-grow: 1;
     padding: 8px 10px;
     border: none;
     border-radius: 4px;
     resize: none;
     font-family: sans-serif;
+    font-size: ${(props) =>
+        props.theme?.chatWindow?.chatInput?.fontSize ||
+        theme.chatWindow.chatInput.fontSize};
     color: black;
     &:focus {
         outline: none;

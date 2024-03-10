@@ -8,7 +8,6 @@ import {
     InputArea,
     SubmitButton,
     FiSendIcon,
-    // SiOpenaiIcon,
     AiOutlineCloseIcon,
     ClearIcon,
     SettingsIcon,
@@ -151,9 +150,12 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                                     query: e.target.value,
                                 })
                             }
-                            placeholder="Type your message here..."
+                            placeholder={
+                                theme?.chatWindow?.chatInput?.placeholder ||
+                                defaultTheme.chatWindow.chatInput.placeholder
+                            }
                             onKeyDown={handleKeyDown}
-                            style={{ fontSize: "14px" }}
+                            theme={theme}
                         />
                         <SubmitButton
                             onClick={() => sendChatPayload()}
