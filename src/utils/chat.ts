@@ -144,6 +144,7 @@ export function readStreamResponse(
                 log("utils.chat.readStreamResponse", messages, "Messages");
                 cb(messages);
 				localStorage.setItem("chatbox", chatbox.innerHTML);
+				localStorage.setItem("messages", JSON.stringify(messages));
                 spinner.remove(); // remove spinner when stream is complete
                 return Promise.resolve(); // return a resolved Promise
             }

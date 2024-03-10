@@ -33,6 +33,7 @@ interface EmbedChatProps {
 const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
     const {
         messages,
+        setMessages,
         chatboxRef,
         chatboxRefIsEmpty,
         chatPayload,
@@ -48,11 +49,15 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
 
     useEffect(() => {
         localStorage.removeItem("chatbox");
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (isChatOpen && chatboxRef.current) {
             const chatboxContent = localStorage.getItem("chatbox");
+            const messages = localStorage.getItem("messages");
+            if (messages) {
+                setMessages(JSON.parse(messages));
+            }
             if (chatboxContent) {
                 chatboxRef.current.innerHTML =
                     DOMPurify.sanitize(chatboxContent);
