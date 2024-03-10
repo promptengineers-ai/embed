@@ -32,23 +32,28 @@ export function constructDeleteMessageButton() {
   return deleteButton;
 }
 
-export function constructUserMessageDiv(messages: { role: string, content: string }[], styles: any) {
-  let userMessageDiv = document.createElement('div');
-  userMessageDiv.className = 'message user';
-  setStyles(userMessageDiv, userMessageStyle(styles));
+export function constructUserMessageDiv(
+    messages: { role: string; content: string }[],
+    theme: any
+) {
+    let userMessageDiv = document.createElement("div");
+    userMessageDiv.className = "message user";
+    setStyles(userMessageDiv, userMessageStyle(theme));
 
-  // Create and add the "👨‍💻 You:" message title
-  let messageTitle = document.createElement('p');
-  messageTitle.innerHTML = '👨‍💻 You:';
-  setStyles(messageTitle, userMessageTitleStyle);
-  userMessageDiv.appendChild(messageTitle);
+    // Create and add the "👨‍💻 You:" message title
+    let messageTitle = document.createElement("p");
+    messageTitle.innerHTML = "👨‍💻 You:";
+    setStyles(messageTitle, userMessageTitleStyle);
+    userMessageDiv.appendChild(messageTitle);
 
-  // Create a separate <p> for the parsed message content and append it to userMessageDiv
-  let messageContent = document.createElement('p');
-  messageContent.innerHTML = marked.parse(messages[getLastUserIndex(messages)].content);
-  userMessageDiv.appendChild(messageContent);
+    // Create a separate <p> for the parsed message content and append it to userMessageDiv
+    let messageContent = document.createElement("p");
+    messageContent.innerHTML = marked.parse(
+        messages[getLastUserIndex(messages)].content
+    );
+    userMessageDiv.appendChild(messageContent);
 
-  return userMessageDiv;
+    return userMessageDiv;
 }
 
 export function constructAssistantMessageDiv() {

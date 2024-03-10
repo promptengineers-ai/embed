@@ -31,11 +31,7 @@ export class ChatClient {
 
 	public async sendChatStreamMessage(
 		botId: string,
-        payload: {
-            model: string,
-            temperature: number,
-            messages: {role: string, content: string}[],
-        },
+        payload: {messages: {role: string, content: string}[]},
         cb: (streamMessages: {role: string, content: string}[]) => void,
         onError: () => void
     ) {

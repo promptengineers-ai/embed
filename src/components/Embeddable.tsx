@@ -2,28 +2,14 @@
 import React from 'react';
 import ChatProvider from '../contexts/ChatContext';
 import EmbedChat from './EmbedChat';
-import { Welcome } from '../types';
+import { BotConfig } from '../interfaces';
 
-const Embeddable: React.FC<{
-    apiHost: string|undefined, 
-    botId: string,
-    styles: any,
-    welcome?: Welcome,
-}> = ({
-        apiHost, 
-        botId,
-        styles,
-        welcome
-}) => {
+const Embeddable: React.FC<BotConfig> = ({ apiHost, id, theme, welcome }) => {
     return (
-        <ChatProvider 
-            apiHost={apiHost} 
-            botId={botId}
-            styles={styles}
-        >
-            <EmbedChat styles={styles} welcome={welcome} />
-        </ChatProvider>  
+        <ChatProvider apiHost={apiHost} id={id} theme={theme}>
+            <EmbedChat theme={theme} welcome={welcome} />
+        </ChatProvider>
     );
-}
+};
 
 export default Embeddable;

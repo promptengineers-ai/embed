@@ -7,7 +7,7 @@ export const WelcomeArea = styled.div`
 `;
 
 export const WelcomeHeading = styled.h2<{
-    styles?: any;
+    theme?: any;
 }>`
     margin: 0;
     padding: 10px;
@@ -15,7 +15,7 @@ export const WelcomeHeading = styled.h2<{
     font-size: 1.5em;
     font-weight: bold;
     display: block;
-    font-family: ${ props => props.styles?.fontFamily };
+    font-family: ${(props) => props.theme?.fontFamily};
 `;
 
 export const WelcomeParagraph = styled.p`

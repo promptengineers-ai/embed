@@ -4,18 +4,13 @@ import { FiSend, FiSettings } from 'react-icons/fi';
 import { FaUndo } from "react-icons/fa";
 import { SiOpenai } from "react-icons/si";
 import { AiOutlineClose } from "react-icons/ai";
-
-interface StyledButtonProps {
-    hoverColor?: string;
-    position?: string;
-    styles?: any;
-}
+import { StyledButtonProps } from '../interfaces';
 
 export const MainButton = styled.div<StyledButtonProps>`
     position: fixed;
     bottom: 20px;
-    ${props => props.styles?.position || 'right'}: 20px;
-    background-color: ${ props => props.styles?.btnColor || '#007bff'};
+    ${(props) => props.theme?.position || "right"}: 20px;
+    background-color: ${(props) => props.theme?.btnColor || "#007bff"};
     color: white;
     display: flex; // Use flexbox to center content
     align-items: center; // Center vertically
@@ -23,16 +18,14 @@ export const MainButton = styled.div<StyledButtonProps>`
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
     font-family: sans-serif;
-    width: 30
-    px; // Set a fixed width
-    height: 30
-    px; // Set a fixed height to form a circle
+    width: 30 px; // Set a fixed width
+    height: 30 px; // Set a fixed height to form a circle
 
     &:hover {
-        background-color: ${props => props.styles?.hoverColor || '#6f42c1'};
+        background-color: ${(props) => props.theme?.hoverColor || "#6f42c1"};
     }
 `;
 
@@ -107,13 +100,13 @@ export const SubmitButton = styled.button<StyledButtonProps>`
     background: none;
     border: none;
     cursor: pointer;
-    color: ${ props => props.styles?.btnColor || '#007bff'};
+    color: ${(props) => props.theme?.btnColor || "#007bff"};
     display: flex;
     align-items: center; // Align the icon inside the button
     justify-content: center; // Center the icon horizontally
     padding: 0 8px; // Adjust padding as needed
     &:hover {
-        color: ${props => props.styles?.hoverColor || '#6f42c1'};
+        color: ${(props) => props.theme?.hoverColor || "#6f42c1"};
     }
     &:focus {
         outline: none;

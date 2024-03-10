@@ -6,14 +6,7 @@ export type ChatContextType = {
     messages: { role: string; content: string }[];
     setMessages: (messages: { role: string; content: string }[]) => void;
     sendChatPayload: () => void;
-    chatPayload: {
-        systemMessage: string;
-        query: string;
-        temperature: number;
-        model: string;
-        vectorstore: string;
-        functions: string[];
-    };
+    chatPayload: {query: string;};
     setChatPayload: (payload: any) => void;
     handleChatboxClick: (e: MouseEvent) => void;
     chatboxRefIsEmpty: boolean;

@@ -1,14 +1,14 @@
 
-export const userMessageStyle = (styles?: any) => {
+export const userMessageStyle = (theme?: any) => {
     return {
-        backgroundColor: styles?.btnColor || 'rgb(0, 123, 255)',
-        borderRadius: '5px',
-        color: 'white',
-        padding: '5px 10px',
-        fontSize: '14px',
-        marginBottom: '10px',
-    }
-}
+        backgroundColor: theme?.btnColor || "rgb(0, 123, 255)",
+        borderRadius: "5px",
+        color: "white",
+        padding: "5px 10px",
+        fontSize: "14px",
+        marginBottom: "10px",
+    };
+};
 
 export const assistMessageStyle = {
     backgroundColor: 'rgb(236, 236, 236)',

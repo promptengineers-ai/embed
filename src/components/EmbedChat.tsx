@@ -25,11 +25,11 @@ import { useChatContext } from '../contexts/ChatContext';
 import { Welcome } from '../types';
 
 interface EmbedChatProps {
-    styles?: any;
+    theme?: any;
     welcome?: Welcome;
 }
 
-const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
+const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
     const {
         messages,
         chatboxRef,
@@ -46,39 +46,38 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
     const toggleChat = () => setChatOpen(!isChatOpen);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          sendChatPayload();
-          submitCleanUp();
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendChatPayload();
+            submitCleanUp();
         }
     };
 
     // Event handler for opening settings
     const handleOpenSettings = () => {
         // Placeholder function, replace with your actual logic
-        alert('Opened settings');
+        alert("Opened settings");
     };
 
     const submitCleanUp = () => {
-        setInputRows(1)
-        setChatPayload({...chatPayload, query: ''});
+        setInputRows(1);
+        setChatPayload({ ...chatPayload, query: "" });
         chatInputRef.current?.focus();
-    }
+    };
 
     const calculatedWelcome = {
         buttons: [
-            {label: 'FAQs', href: 'https://example.com'},
-            {label: 'Contact Us', href: 'https://example.com/contact-us'},
-            {label: 'Support', href: 'https://example.com/support'},
-            {label: 'Feedback', href: 'https://example.com/feedback'},
-        ], 
+            { label: "FAQs", href: "https://example.com" },
+            { label: "Contact Us", href: "https://example.com/contact-us" },
+            { label: "Support", href: "https://example.com/support" },
+            { label: "Feedback", href: "https://example.com/feedback" },
+        ],
         ...welcome,
-
-    }
+    };
 
     return (
         <>
-            <MainButton onClick={toggleChat} styles={styles}>
+            <MainButton onClick={toggleChat} theme={theme}>
                 {isChatOpen ? <AiOutlineCloseIcon /> : <SiOpenaiIcon />}
             </MainButton>
             {isChatOpen && (
@@ -96,16 +95,29 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                     <ChatContent id="chatbox" ref={chatboxRef}>
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
-                                <WelcomeHeading>{calculatedWelcome.heading || 'Prompt Engineers Chat'}</WelcomeHeading>
-                                <WelcomeParagraph>{calculatedWelcome.paragraph || 'How can I assist you today?'}</WelcomeParagraph>
+                                <WelcomeHeading>
+                                    {calculatedWelcome.heading ||
+                                        "Prompt Engineers Chat"}
+                                </WelcomeHeading>
+                                <WelcomeParagraph>
+                                    {calculatedWelcome.paragraph ||
+                                        "How can I assist you today?"}
+                                </WelcomeParagraph>
                                 <ButtonGrid>
-                                    {calculatedWelcome.buttons?.map((item: any, index: number) => {
-                                        return (
-                                            // <a key={index} href={item.href}>
-                                                <GridButton onClick={()=> alert('Not implemented')}>{item.label}</GridButton>
-                                            // </a>
-                                        )
-                                    })}
+                                    {calculatedWelcome.buttons?.map(
+                                        (item: any, index: number) => {
+                                            return (
+                                                <GridButton
+                                                    key={index}
+                                                    onClick={() =>
+                                                        alert("Not implemented")
+                                                    }
+                                                >
+                                                    {item.label}
+                                                </GridButton>
+                                            );
+                                        }
+                                    )}
                                 </ButtonGrid>
                             </WelcomeArea>
                         )}
@@ -115,14 +127,19 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                             ref={chatInputRef}
                             rows={inputRows}
                             value={chatPayload.query}
-                            onChange={(e) => setChatPayload({...chatPayload, query: e.target.value})}
+                            onChange={(e) =>
+                                setChatPayload({
+                                    ...chatPayload,
+                                    query: e.target.value,
+                                })
+                            }
                             placeholder="Type your message here..."
                             onKeyDown={handleKeyDown}
-                            style={{ fontSize: '14px' }}
+                            style={{ fontSize: "14px" }}
                         />
-                        <SubmitButton 
+                        <SubmitButton
                             onClick={() => sendChatPayload()}
-                            styles={styles}
+                            theme={theme}
                         >
                             <FiSendIcon />
                         </SubmitButton>
@@ -130,7 +147,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                 </ChatWindow>
             )}
         </>
-      );
+    );
 };
 
 export default EmbedChat;
