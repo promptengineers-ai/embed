@@ -1,22 +1,31 @@
+import defaultTheme from './theme';
 
 export const userMessageStyle = (theme?: any) => {
     return {
-        backgroundColor: theme?.btnColor || "rgb(0, 123, 255)",
+        backgroundColor:
+            theme?.chatWindow?.userMessage?.backgroundColor ||
+            defaultTheme.chatWindow.userMessage.backgroundColor,
         borderRadius: "5px",
-        color: "white",
+        color:
+            theme?.chatWindow?.userMessage?.textColor ||
+            defaultTheme.chatWindow.userMessage.textColor,
         padding: "5px 10px",
         fontSize: "14px",
         marginBottom: "10px",
     };
 };
 
-export const assistMessageStyle = {
-    backgroundColor: 'rgb(236, 236, 236)',
-    color: 'black',
-    borderRadius: '5px',
-    padding: '5px 10px',
-    fontSize: '14px',
-    marginBottom: '10px',
+export const assistMessageStyle = (theme?: any) => {
+    return {
+        backgroundColor: theme?.chatWindow?.botMessage?.backgroundColor ||
+            defaultTheme.chatWindow.botMessage.backgroundColor,
+        color: theme?.chatWindow?.botMessage?.backgroundColor ||
+            defaultTheme.chatWindow.botMessage.textColor,
+        borderRadius: "5px",
+        padding: "5px 10px",
+        fontSize: "14px",
+        marginBottom: "10px",
+    };
 }
 
 export const topRowDivStyle = {

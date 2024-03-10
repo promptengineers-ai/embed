@@ -56,31 +56,31 @@ export function constructUserMessageDiv(
     return userMessageDiv;
 }
 
-export function constructAssistantMessageDiv() {
-  let assistantMessageDiv = document.createElement('div');
-  assistantMessageDiv.className = 'message assistant';
-  setStyles(assistantMessageDiv, assistMessageStyle);
+export function constructAssistantMessageDiv(theme: any) {
+    let assistantMessageDiv = document.createElement("div");
+    assistantMessageDiv.className = "message assistant";
+    setStyles(assistantMessageDiv, assistMessageStyle(theme));
 
-  // Create a container for the top row which will hold the title and toolContainer
-  let topRowDiv = document.createElement('div');
-  setStyles(topRowDiv, assistantMessageTitleStyle);
-  assistantMessageDiv.appendChild(topRowDiv);
+    // Create a container for the top row which will hold the title and toolContainer
+    let topRowDiv = document.createElement("div");
+    setStyles(topRowDiv, assistantMessageTitleStyle);
+    assistantMessageDiv.appendChild(topRowDiv);
 
-  // Create and add the "🤖 Assistant:" message title
-  let messageTitle = document.createElement('p');
-  messageTitle.innerHTML = '🤖 Assistant:';
-  setStyles(messageTitle, assistantMessageTitleStyle);
-  topRowDiv.appendChild(messageTitle);
+    // Create and add the "🤖 Assistant:" message title
+    let messageTitle = document.createElement("p");
+    messageTitle.innerHTML = "🤖 Assistant:";
+    setStyles(messageTitle, assistantMessageTitleStyle);
+    topRowDiv.appendChild(messageTitle);
 
-  // Create a separate <p> for the message content and append it to assistantMessageDiv
-  let messageContent = document.createElement('p');
-  assistantMessageDiv.appendChild(messageContent);
+    // Create a separate <p> for the message content and append it to assistantMessageDiv
+    let messageContent = document.createElement("p");
+    assistantMessageDiv.appendChild(messageContent);
 
-  let spinner = constructSpinner();
-  spinner.style.display = 'none'; // hide the spinner initially
-  assistantMessageDiv.appendChild(spinner); 
+    let spinner = constructSpinner();
+    spinner.style.display = "none"; // hide the spinner initially
+    assistantMessageDiv.appendChild(spinner);
 
-  return { assistantMessageDiv, spinner };
+    return { assistantMessageDiv, spinner };
 }
 
 export function constructSpinner() {

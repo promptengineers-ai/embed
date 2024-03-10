@@ -1,7 +1,11 @@
+const primaryColor = "#000";
+const secondaryColor = "#6f42c1";
+const tertiaryColor = "#ececec";
+
 const theme = {
     button: {
-        backgroundColor: "#000",
-        hoverColor: "#6f42c1",
+        backgroundColor: primaryColor,
+        hoverColor: secondaryColor,
         padding: "2px",
         borderRadius: "8px",
         iconColor: "white",
@@ -28,12 +32,12 @@ const theme = {
                 href: "https://promptengineersai.slack.com/join/shared_invite/zt-21upjsftv-gX~gNjTCU~2HfbeM_ZwTEQ#/shared-invite/email",
             },
             {
-                label: "Documentation",
-                href: "https://prompt-engineers.gitbook.io/documentation",
-            },
-            {
                 label: "Github",
                 href: "https://github.com/promptengineers-ai",
+            },
+            {
+                label: "Documentation",
+                href: "https://prompt-engineers.gitbook.io/documentation",
             },
             {
                 label: "Youtube",
@@ -46,15 +50,15 @@ const theme = {
         fontSize: 16,
         poweredByTextColor: "#303235",
         botMessage: {
-            backgroundColor: "#f7f8ff",
-            textColor: "#303235",
+            backgroundColor: tertiaryColor,
+            textColor: "#000",
             showAvatar: true,
             avatarSrc:
                 "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
         },
         userMessage: {
-            backgroundColor: "#3B81F6",
-            textColor: "#ffffff",
+            backgroundColor: primaryColor,
+            textColor: "#fff",
             showAvatar: true,
             avatarSrc:
                 "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
@@ -63,7 +67,7 @@ const theme = {
             placeholder: "Type your question",
             backgroundColor: "#ffffff",
             textColor: "#303235",
-            sendButtonColor: "#3B81F6",
+            sendButtonColor: primaryColor,
         },
     },
 };

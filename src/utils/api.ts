@@ -14,12 +14,12 @@ export class ChatClient {
 	private controller: AbortController | null = null;
 	private apiUrl: string;
 	private botId: string | undefined;
-	private messageStyles: string | undefined;
+	private theme: string | undefined;
 
-	constructor(_apiUrl?: string, _botId?: string, _styles?: any) {
+	constructor(_apiUrl?: string, _botId?: string, _theme?: any) {
 		this.apiUrl	= _apiUrl || 'https://api.promptengineers.ai';
 		this.botId = _botId;
-		this.messageStyles = _styles;
+		this.theme = _theme;
 	}
 
 	// Method to abort the ongoing request
@@ -43,7 +43,7 @@ export class ChatClient {
 		this.controller = new AbortController();
 
         // Add the user's message to the messages array
-        let userMessageDiv = constructUserMessageDiv(payload.messages, this.messageStyles);
+        let userMessageDiv = constructUserMessageDiv(payload.messages, this.theme);
 
         // Add the message div to the chatbox
         let chatbox = document.getElementById('chatbox') as HTMLDivElement;
@@ -51,7 +51,7 @@ export class ChatClient {
 		chatbox.scrollTop = chatbox.scrollHeight;
 
         // Construct the assistant message div (with spinner) right after user message is added
-        let { assistantMessageDiv, spinner } = constructAssistantMessageDiv();
+        let { assistantMessageDiv, spinner } = constructAssistantMessageDiv(this.theme);
 
         // Make the spinner visible
         spinner.style.display = 'flex';
