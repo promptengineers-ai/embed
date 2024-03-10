@@ -56,6 +56,7 @@ export default function ChatProvider({
             while (chatboxRef.current?.firstChild) {
                 chatboxRef.current.removeChild(chatboxRef.current.firstChild);
             }
+            localStorage.removeItem("chatbox");
             setMessages([{ role: "system", content: "" }]);
             setChatPayload((prev) => ({
                 ...prev,

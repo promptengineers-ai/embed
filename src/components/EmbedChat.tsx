@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import defaultTheme from "../config/theme";
 import {
     MainButton,
@@ -23,6 +23,7 @@ import {
 } from "../styles/Welcome.styles";
 import { useChatContext } from "../contexts/ChatContext";
 import { Welcome } from "../types";
+import DOMPurify from "dompurify";
 
 interface EmbedChatProps {
     theme?: any;
@@ -44,6 +45,20 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
     const [inputRows, setInputRows] = useState(1);
 
     const toggleChat = () => setChatOpen(!isChatOpen);
+
+    useEffect(() => {
+        localStorage.removeItem("chatbox");
+    }, [])
+
+    useEffect(() => {
+        if (isChatOpen && chatboxRef.current) {
+            const chatboxContent = localStorage.getItem("chatbox");
+            if (chatboxContent) {
+                chatboxRef.current.innerHTML =
+                    DOMPurify.sanitize(chatboxContent);
+            }
+        }
+    }, [isChatOpen]);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter" && !e.shiftKey) {
@@ -96,25 +111,22 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
             </MainButton>
             {isChatOpen && (
                 <ChatWindow theme={theme}>
-                    <ChatContent id="chatbox" ref={chatboxRef}>
-                        <ControlButtons>
-                            {messages.length > 0 && (
-                                <ControlButton onClick={resetChat}>
-                                    <ClearIcon />
-                                </ControlButton>
-                            )}
-                            <ControlButton onClick={handleOpenSettings}>
-                                <SettingsIcon fontSize={"20px"} />
+                    <ControlButtons>
+                        {messages.length > 0 && (
+                            <ControlButton onClick={resetChat}>
+                                <ClearIcon />
                             </ControlButton>
-                            {window.innerWidth < 768 && (
-                                <ControlButton
-                                    onClick={toggleChat}
-                                    theme={theme}
-                                >
-                                    <AiOutlineCloseIcon />
-                                </ControlButton>
-                            )}
-                        </ControlButtons>
+                        )}
+                        <ControlButton onClick={handleOpenSettings}>
+                            <SettingsIcon fontSize={"20px"} />
+                        </ControlButton>
+                        {window.innerWidth < 768 && (
+                            <ControlButton onClick={toggleChat} theme={theme}>
+                                <AiOutlineCloseIcon />
+                            </ControlButton>
+                        )}
+                    </ControlButtons>
+                    <ChatContent id="chatbox" ref={chatboxRef}>
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
                                 <WelcomeHeading>

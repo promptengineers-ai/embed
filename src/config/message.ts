@@ -13,7 +13,7 @@ export const userMessageStyle = (theme?: any) => {
             defaultTheme.chatWindow.userMessage.textColor,
         padding: "5px 10px",
         fontSize: "14px",
-        marginBottom: "10px",
+        marginBottom: "5px",
     };
 };
 
@@ -26,7 +26,7 @@ export const assistMessageStyle = (theme?: any) => {
         borderRadius: "5px",
         padding: "5px 10px",
         fontSize: "14px",
-        marginBottom: "10px",
+        marginBottom: "5px",
     };
 }
 
