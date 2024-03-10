@@ -6,6 +6,8 @@ const boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)";
 const boxShadowChatWindow = "0 4px 10px rgba(0, 0, 0, 0.2)";
 const boxShadowChatWindowButton = "0 1px 2px rgba(0, 0, 0, 0.2)";
 
+const logo = "https://dev.promptengineers.ai/favicon.ico";
+
 const theme = {
     button: {
         backgroundColor: primaryColor,
@@ -21,7 +23,7 @@ const theme = {
         icon: {
             padding: "8px",
             height: "40px",
-            src: "https://dev.promptengineers.ai/favicon.ico",
+            src: logo,
         },
     },
     chatWindow: {
@@ -30,6 +32,10 @@ const theme = {
             "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
         welcomeMessage: "How can I assist you today?",
         welcomeButtons: [
+            {
+                label: "Website",
+                href: "https://promptengineers.ai",
+            },
             {
                 label: "Slack Channel",
                 href: "https://promptengineersai.slack.com/join/shared_invite/zt-21upjsftv-gX~gNjTCU~2HfbeM_ZwTEQ#/shared-invite/email",
@@ -45,6 +51,10 @@ const theme = {
             {
                 label: "Youtube",
                 href: "https://www.youtube.com/@promptengineersai",
+            },
+            {
+                label: "Meetups",
+                href: "https://www.meetup.com/plano-prompt-engineers",
             },
         ],
         height: "500px",
@@ -62,6 +72,11 @@ const theme = {
             hoverColor: "#e0e0e0",
             boxShadow: boxShadowChatWindowButton,
             color: "black",
+        },
+        icon: {
+            src: logo,
+            height: "150px",
+            width: "140px",
         },
         gridButton: {
             padding: "10px",

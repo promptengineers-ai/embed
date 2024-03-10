@@ -134,14 +134,35 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                     <ChatContent id="chatbox" ref={chatboxRef}>
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
-                                <WelcomeHeading>
-                                    {theme?.chatWindow?.title ||
-                                        defaultTheme.chatWindow.title}
-                                </WelcomeHeading>
-                                <WelcomeParagraph>
-                                    {theme?.chatWindow?.welcomeMessage ||
-                                        defaultTheme.chatWindow.welcomeMessage}
-                                </WelcomeParagraph>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <img
+                                        src={
+                                            theme?.button?.icon?.src ||
+                                            defaultTheme.button.icon.src
+                                        }
+                                        alt="Descriptive Text"
+                                        style={{
+                                            width: "110px",
+                                            height: "120px",
+                                        }} // Adjust the size as needed
+                                    />
+                                </div>
+                                <div style={{ textAlign: "center" }}>
+                                    <WelcomeHeading>
+                                        {theme?.chatWindow?.title ||
+                                            defaultTheme.chatWindow.title}
+                                    </WelcomeHeading>
+                                    <WelcomeParagraph>
+                                        {theme?.chatWindow?.welcomeMessage ||
+                                            defaultTheme.chatWindow
+                                                .welcomeMessage}
+                                    </WelcomeParagraph>
+                                </div>
                                 <ButtonGrid>
                                     {calculatedButtons.map(
                                         (item: any, index: number) => {
