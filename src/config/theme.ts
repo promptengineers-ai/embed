@@ -59,6 +59,7 @@ const theme = {
         ],
         height: "500px",
         width: "340px",
+        fontFamily: "Arial, sans-serif",
         backgroundColor: "#ffffff",
         boxShadow: boxShadowChatWindow,
         borderRadius: "8px",

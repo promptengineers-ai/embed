@@ -60,7 +60,8 @@ export const ChatWindow = styled.div<ThemeProps>`
     flex-direction: column;
     overflow: hidden;
     justify-content: space-between;
-    font-family: sans-serif;
+    font-family: ${(props) =>
+        props.theme?.chatWindow?.fontFamily || theme.chatWindow.fontFamily};
 
     /* Media query for mobile devices */
     @media (max-width: 768px) {
