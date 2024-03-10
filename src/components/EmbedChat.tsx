@@ -1,28 +1,29 @@
-import {useState, useRef} from 'react';
+import { useState, useRef } from "react";
+import defaultTheme from "../config/theme";
 import {
-    MainButton, 
+    MainButton,
     ChatWindow,
     ChatContent,
-    ChatInput, 
-    InputArea, 
-    SubmitButton, 
-    FiSendIcon, 
-    SiOpenaiIcon,
+    ChatInput,
+    InputArea,
+    SubmitButton,
+    FiSendIcon,
+    // SiOpenaiIcon,
     AiOutlineCloseIcon,
     ClearIcon,
     SettingsIcon,
     ControlButton,
     ControlButtons,
-} from '../styles/EmbedChat.styles';
+} from "../styles/EmbedChat.styles";
 import {
     WelcomeArea,
     WelcomeHeading,
     WelcomeParagraph,
     ButtonGrid,
     GridButton,
-} from '../styles/Welcome.styles';
-import { useChatContext } from '../contexts/ChatContext';
-import { Welcome } from '../types';
+} from "../styles/Welcome.styles";
+import { useChatContext } from "../contexts/ChatContext";
+import { Welcome } from "../types";
 
 interface EmbedChatProps {
     theme?: any;
@@ -51,6 +52,10 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
             sendChatPayload();
             submitCleanUp();
         }
+        if (e.altKey && e.key === "n") {
+            e.preventDefault();
+            resetChat();
+        }
     };
 
     // Event handler for opening settings
@@ -65,20 +70,30 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
         chatInputRef.current?.focus();
     };
 
-    const calculatedWelcome = {
-        buttons: [
-            { label: "FAQs", href: "https://example.com" },
-            { label: "Contact Us", href: "https://example.com/contact-us" },
-            { label: "Support", href: "https://example.com/support" },
-            { label: "Feedback", href: "https://example.com/feedback" },
-        ],
-        ...welcome,
-    };
+    const calculatedButtons =
+        theme?.chatWindow?.welcomeButtons ||
+        defaultTheme.chatWindow.welcomeButtons;
 
     return (
         <>
             <MainButton onClick={toggleChat} theme={theme}>
-                {isChatOpen ? <AiOutlineCloseIcon /> : <SiOpenaiIcon />}
+                {isChatOpen ? (
+                    <AiOutlineCloseIcon
+                        style={{ padding: defaultTheme.button.icon.padding }}
+                    />
+                ) : (
+                    <img
+                        src={
+                            theme?.button?.icon?.src ||
+                            defaultTheme.button.icon.src
+                        }
+                        alt="Logo"
+                        height={
+                            theme?.button?.icon?.height ||
+                            defaultTheme.button.icon.height
+                        }
+                    />
+                )}
             </MainButton>
             {isChatOpen && (
                 <ChatWindow>
@@ -96,21 +111,24 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
                                 <WelcomeHeading>
-                                    {calculatedWelcome.heading ||
-                                        "Prompt Engineers Chat"}
+                                    {theme?.chatWindow?.title ||
+                                        defaultTheme.chatWindow.title}
                                 </WelcomeHeading>
                                 <WelcomeParagraph>
-                                    {calculatedWelcome.paragraph ||
-                                        "How can I assist you today?"}
+                                    {theme?.chatWindow?.welcomeMessage ||
+                                        defaultTheme.chatWindow.welcomeMessage}
                                 </WelcomeParagraph>
                                 <ButtonGrid>
-                                    {calculatedWelcome.buttons?.map(
+                                    {calculatedButtons.map(
                                         (item: any, index: number) => {
                                             return (
                                                 <GridButton
                                                     key={index}
                                                     onClick={() =>
-                                                        alert("Not implemented")
+                                                        window.open(
+                                                            item.href,
+                                                            "_blank"
+                                                        )
                                                     }
                                                 >
                                                     {item.label}

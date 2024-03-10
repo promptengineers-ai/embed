@@ -1,5 +1,7 @@
 // Styled button component
 import styled from 'styled-components';
+import theme from "../config/theme";
+
 import { FiSend, FiSettings } from 'react-icons/fi';
 import { FaUndo } from "react-icons/fa";
 import { SiOpenai } from "react-icons/si";
@@ -10,22 +12,27 @@ export const MainButton = styled.div<StyledButtonProps>`
     position: fixed;
     bottom: 20px;
     ${(props) => props.theme?.position || "right"}: 20px;
-    background-color: ${(props) => props.theme?.btnColor || "#007bff"};
+    background-color: ${(props) =>
+        props.theme?.button?.backgroundColor || theme.button.backgroundColor};
     color: white;
     display: flex; // Use flexbox to center content
     align-items: center; // Center vertically
     justify-content: center; // Center horizontally
-    padding: 10px;
-    border-radius: 8px;
+    padding: ${(props) => props.theme?.button?.padding || theme.button.padding};
+    border-radius: ${(props) =>
+        props.theme?.button?.borderRadius || theme.button.borderRadius};
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: ${(props) => props.theme?.button?.width || theme.button.width};
     transition: background-color 0.3s;
     font-family: sans-serif;
-    width: 30 px; // Set a fixed width
-    height: 30 px; // Set a fixed height to form a circle
+    width: ${(props) => props.theme?.button?.width || theme.button.width};
+    height: ${(props) =>
+        props.theme?.button?.height ||
+        theme.button.height}; // Set a fixed height to form a circle
 
     &:hover {
-        background-color: ${(props) => props.theme?.hoverColor || "#6f42c1"};
+        background-color: ${(props) =>
+            props.theme?.button?.hoverColor || theme.button.hoverColor};
     }
 `;
 
@@ -36,7 +43,7 @@ export const ChatWindow = styled.div`
     width: 340px; /* Or any other size */
     height: 500px; /* Or any other size */
     background-color: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     padding: 10px;
     box-sizing: border-box;
@@ -45,6 +52,15 @@ export const ChatWindow = styled.div`
     overflow: hidden;
     justify-content: space-between;
     font-family: sans-serif;
+
+    // /* Media query for mobile devices */
+    // @media (max-width: 768px) {
+    //     bottom: 0;
+    //     right: 0;
+    //     width: 100vw; /* 100% of viewport width */
+    //     height: 100vh; /* 100% of viewport height */
+    //     border-radius: 0; /* Optional: remove border radius for full screen mode */
+    // }
 `;
 
 export const ChatContent = styled.div`
@@ -100,13 +116,15 @@ export const SubmitButton = styled.button<StyledButtonProps>`
     background: none;
     border: none;
     cursor: pointer;
-    color: ${(props) => props.theme?.btnColor || "#007bff"};
+    color: ${(props) =>
+        props.theme?.button?.backgroundColor || theme.button.backgroundColor};
     display: flex;
     align-items: center; // Align the icon inside the button
     justify-content: center; // Center the icon horizontally
     padding: 0 8px; // Adjust padding as needed
     &:hover {
-        color: ${(props) => props.theme?.hoverColor || "#6f42c1"};
+        color: ${(props) =>
+            props.theme?.button?.hoverColor || theme.button.hoverColor};
     }
     &:focus {
         outline: none;
@@ -152,7 +170,7 @@ export const MessageContent = styled.div`
 
 // Add some simple styling for messages
 export const Message = styled.div<{ sender: 'user' | 'bot' }>`
-    background-color: ${props => props.sender === 'user' ? '#007bff' : '#ECECEC'};
+    background-color: ${props => props.sender === 'user' ? theme.button.backgroundColor : '#ECECEC'};
     color: ${props => props.sender === 'user' ? 'white' : 'black'};
     border-radius: 7px;
     padding: 5px 10px;
