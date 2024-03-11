@@ -78,8 +78,8 @@ const theme = {
         },
         icon: {
             src: logo,
-            height: "150px",
-            width: "140px",
+            height: "100px",
+            width: "100px",
             borderRadius: "10px",
         },
         gridButton: {
