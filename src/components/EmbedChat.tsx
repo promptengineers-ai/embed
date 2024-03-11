@@ -27,10 +27,9 @@ import DOMPurify from "dompurify";
 
 interface EmbedChatProps {
     theme?: any;
-    welcome?: Welcome;
 }
 
-const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
+const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
     const {
         messages,
         setMessages,

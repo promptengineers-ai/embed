@@ -12,5 +12,4 @@ export interface BotConfig {
     id: string;
     apiHost?: string;
     theme?: any;
-    welcome?: Welcome;
 }
