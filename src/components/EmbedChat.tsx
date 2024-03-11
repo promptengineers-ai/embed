@@ -1,37 +1,38 @@
-import {useState, useRef} from 'react';
+import { useState, useRef, useEffect } from "react";
+import defaultTheme from "../config/theme";
 import {
-    MainButton, 
+    MainButton,
     ChatWindow,
     ChatContent,
-    ChatInput, 
-    InputArea, 
-    SubmitButton, 
-    FiSendIcon, 
-    SiOpenaiIcon,
+    ChatInput,
+    InputArea,
+    SubmitButton,
+    FiSendIcon,
     AiOutlineCloseIcon,
     ClearIcon,
     SettingsIcon,
     ControlButton,
     ControlButtons,
-} from '../styles/EmbedChat.styles';
+} from "../styles/EmbedChat.styles";
 import {
     WelcomeArea,
     WelcomeHeading,
     WelcomeParagraph,
     ButtonGrid,
     GridButton,
-} from '../styles/Welcome.styles';
-import { useChatContext } from '../contexts/ChatContext';
-import { Welcome } from '../types';
+} from "../styles/Welcome.styles";
+import { useChatContext } from "../contexts/ChatContext";
+import { Welcome } from "../types";
+import DOMPurify from "dompurify";
 
 interface EmbedChatProps {
-    styles?: any;
-    welcome?: Welcome;
+    theme?: any;
 }
 
-const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
+const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
     const {
         messages,
+        setMessages,
         chatboxRef,
         chatboxRefIsEmpty,
         chatPayload,
@@ -45,44 +46,82 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
 
     const toggleChat = () => setChatOpen(!isChatOpen);
 
+    useEffect(() => {
+        localStorage.removeItem("chatbox");
+    }, []);
+
+    useEffect(() => {
+        if (isChatOpen && chatboxRef.current) {
+            const chatboxContent = localStorage.getItem("chatbox");
+            const messages = localStorage.getItem("messages");
+            if (messages) {
+                setMessages(JSON.parse(messages));
+            }
+            if (chatboxContent) {
+                chatboxRef.current.innerHTML =
+                    DOMPurify.sanitize(chatboxContent);
+            }
+        }
+    }, [isChatOpen]);
+
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          sendChatPayload();
-          submitCleanUp();
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendChatPayload();
+            submitCleanUp();
+        }
+        if (e.altKey && e.key === "n") {
+            e.preventDefault();
+            resetChat();
         }
     };
 
     // Event handler for opening settings
     const handleOpenSettings = () => {
         // Placeholder function, replace with your actual logic
-        alert('Opened settings');
+        alert("Opened settings");
     };
 
     const submitCleanUp = () => {
-        setInputRows(1)
-        setChatPayload({...chatPayload, query: ''});
+        setInputRows(1);
+        setChatPayload({ ...chatPayload, query: "" });
         chatInputRef.current?.focus();
-    }
+    };
 
-    const calculatedWelcome = {
-        buttons: [
-            {label: 'FAQs', href: 'https://example.com'},
-            {label: 'Contact Us', href: 'https://example.com/contact-us'},
-            {label: 'Support', href: 'https://example.com/support'},
-            {label: 'Feedback', href: 'https://example.com/feedback'},
-        ], 
-        ...welcome,
-
-    }
+    const calculatedButtons =
+        theme?.chatWindow?.welcomeButtons ||
+        defaultTheme.chatWindow.welcomeButtons;
 
     return (
         <>
-            <MainButton onClick={toggleChat} styles={styles}>
-                {isChatOpen ? <AiOutlineCloseIcon /> : <SiOpenaiIcon />}
+            <MainButton onClick={toggleChat} theme={theme}>
+                {isChatOpen ? (
+                    <AiOutlineCloseIcon
+                        style={{ padding: defaultTheme.button.icon.padding }}
+                    />
+                ) : (
+                    <img
+                        src={
+                            theme?.button?.icon?.src ||
+                            defaultTheme.button.icon.src
+                        }
+                        alt="Logo"
+                        style={{
+                            width:
+                                theme?.button?.icon?.width ||
+                                defaultTheme.button.icon.width,
+                            height:
+                                theme?.button?.icon?.height ||
+                                defaultTheme.button.icon.height,
+                            borderRadius:
+                                theme?.button?.icon?.borderRadius ||
+                                defaultTheme.button.icon.borderRadius,
+                        }}
+                    />
+                )}
             </MainButton>
             {isChatOpen && (
-                <ChatWindow>
+                <ChatWindow theme={theme}>
                     <ControlButtons>
                         {messages.length > 0 && (
                             <ControlButton onClick={resetChat}>
@@ -90,22 +129,78 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                             </ControlButton>
                         )}
                         <ControlButton onClick={handleOpenSettings}>
-                            <SettingsIcon />
+                            <SettingsIcon fontSize={"20px"} />
                         </ControlButton>
+                        {window.innerWidth < 768 && (
+                            <ControlButton onClick={toggleChat} theme={theme}>
+                                <AiOutlineCloseIcon />
+                            </ControlButton>
+                        )}
                     </ControlButtons>
                     <ChatContent id="chatbox" ref={chatboxRef}>
                         {chatboxRefIsEmpty && (
                             <WelcomeArea>
-                                <WelcomeHeading>{calculatedWelcome.heading || 'Prompt Engineers Chat'}</WelcomeHeading>
-                                <WelcomeParagraph>{calculatedWelcome.paragraph || 'How can I assist you today?'}</WelcomeParagraph>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <img
+                                        src={
+                                            theme?.chatWindow?.icon?.src ||
+                                            defaultTheme.chatWindow.icon.src
+                                        }
+                                        alt="logo"
+                                        style={{
+                                            width:
+                                                theme?.chatWindow?.icon
+                                                    ?.width ||
+                                                defaultTheme.chatWindow.icon
+                                                    .width,
+                                            height:
+                                                theme?.chatWindow?.icon
+                                                    ?.height ||
+                                                defaultTheme.chatWindow.icon
+                                                    .height,
+                                            borderRadius:
+                                                theme?.chatWindow?.icon
+                                                    ?.borderRadius ||
+                                                defaultTheme.chatWindow.icon
+                                                    .borderRadius,
+                                        }} // Adjust the size as needed
+                                    />
+                                </div>
+                                <div style={{ textAlign: "center" }}>
+                                    <WelcomeHeading>
+                                        {theme?.chatWindow?.title ||
+                                            defaultTheme.chatWindow.title}
+                                    </WelcomeHeading>
+                                    <WelcomeParagraph>
+                                        {theme?.chatWindow?.welcomeMessage ||
+                                            defaultTheme.chatWindow
+                                                .welcomeMessage}
+                                    </WelcomeParagraph>
+                                </div>
                                 <ButtonGrid>
-                                    {calculatedWelcome.buttons?.map((item: any, index: number) => {
-                                        return (
-                                            // <a key={index} href={item.href}>
-                                                <GridButton onClick={()=> alert('Not implemented')}>{item.label}</GridButton>
-                                            // </a>
-                                        )
-                                    })}
+                                    {calculatedButtons.map(
+                                        (item: any, index: number) => {
+                                            return (
+                                                <GridButton
+                                                    theme={theme}
+                                                    key={index}
+                                                    onClick={() =>
+                                                        window.open(
+                                                            item.href,
+                                                            "_blank"
+                                                        )
+                                                    }
+                                                >
+                                                    {item.label}
+                                                </GridButton>
+                                            );
+                                        }
+                                    )}
                                 </ButtonGrid>
                             </WelcomeArea>
                         )}
@@ -115,14 +210,22 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                             ref={chatInputRef}
                             rows={inputRows}
                             value={chatPayload.query}
-                            onChange={(e) => setChatPayload({...chatPayload, query: e.target.value})}
-                            placeholder="Type your message here..."
+                            onChange={(e) =>
+                                setChatPayload({
+                                    ...chatPayload,
+                                    query: e.target.value,
+                                })
+                            }
+                            placeholder={
+                                theme?.chatWindow?.chatInput?.placeholder ||
+                                defaultTheme.chatWindow.chatInput.placeholder
+                            }
                             onKeyDown={handleKeyDown}
-                            style={{ fontSize: '14px' }}
+                            theme={theme}
                         />
-                        <SubmitButton 
+                        <SubmitButton
                             onClick={() => sendChatPayload()}
-                            styles={styles}
+                            theme={theme}
                         >
                             <FiSendIcon />
                         </SubmitButton>
@@ -130,7 +233,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ styles, welcome }) => {
                 </ChatWindow>
             )}
         </>
-      );
+    );
 };
 
 export default EmbedChat;

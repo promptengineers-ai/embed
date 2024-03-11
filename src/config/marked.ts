@@ -2,6 +2,7 @@ import { marked } from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
 
+marked.use({ silent: true });
 const renderer = new marked.Renderer();
 renderer.codespan = function(text) {
 	return `<code>${text}</code>`;

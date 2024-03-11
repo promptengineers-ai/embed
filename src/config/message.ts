@@ -1,22 +1,33 @@
+import defaultTheme from './theme';
 
-export const userMessageStyle = (styles?: any) => {
+const messageTitleMargin = "0"
+
+export const userMessageStyle = (theme?: any) => {
     return {
-        backgroundColor: styles?.btnColor || 'rgb(0, 123, 255)',
-        borderRadius: '5px',
-        color: 'white',
-        padding: '5px 10px',
-        fontSize: '14px',
-        marginBottom: '10px',
-    }
-}
+        backgroundColor:
+            theme?.chatWindow?.userMessage?.backgroundColor ||
+            defaultTheme.chatWindow.userMessage.backgroundColor,
+        borderRadius: "5px",
+        color:
+            theme?.chatWindow?.userMessage?.textColor ||
+            defaultTheme.chatWindow.userMessage.textColor,
+        padding: "5px 10px",
+        fontSize: "14px",
+        marginBottom: "5px",
+    };
+};
 
-export const assistMessageStyle = {
-    backgroundColor: 'rgb(236, 236, 236)',
-    color: 'black',
-    borderRadius: '5px',
-    padding: '5px 10px',
-    fontSize: '14px',
-    marginBottom: '10px',
+export const assistMessageStyle = (theme?: any) => {
+    return {
+        backgroundColor: theme?.chatWindow?.botMessage?.backgroundColor ||
+            defaultTheme.chatWindow.botMessage.backgroundColor,
+        color: theme?.chatWindow?.botMessage?.backgroundColor ||
+            defaultTheme.chatWindow.botMessage.textColor,
+        borderRadius: "5px",
+        padding: "5px 10px",
+        fontSize: "14px",
+        marginBottom: "5px",
+    };
 }
 
 export const topRowDivStyle = {
@@ -26,15 +37,16 @@ export const topRowDivStyle = {
 }
 
 export const userMessageTitleStyle = {
-    color: 'white',
-    fontSize: '18px',
-}
+    color: "white",
+    fontSize: "18px",
+    margin: "5px 0px",
+};
 
 export const assistantMessageTitleStyle = {
-    color: 'black',
-    fontSize: '18px',
-    margin: '0',
-}
+    color: "black",
+    fontSize: "18px",
+    margin: "5px 0px",
+};
 
 export const docLinkStyle = {
     display: 'inline-block',

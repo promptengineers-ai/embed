@@ -1,7 +1,7 @@
 
-export function setStyles(element: HTMLElement, styles: Record<string, string>): void {
-    Object.keys(styles).forEach(property => {
+export function setStyles(element: HTMLElement, theme: Record<string, string>): void {
+    Object.keys(theme).forEach((property) => {
         // Using the bracket notation to access properties since we're using a string index
-        element.style[property as any] = styles[property];
+        element.style[property as any] = theme[property];
     });
 }

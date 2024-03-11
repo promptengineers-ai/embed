@@ -12,7 +12,7 @@
     "@types/node": "^16.18.79",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "dompurify": "^3.0.8",
+    "dompurify": "^3.0.9",
     "highlight.js": "11.8.0",
     "marked": "6.0.0",
     "react": "^18.2.0",
