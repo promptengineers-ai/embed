@@ -6,7 +6,7 @@ const boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)";
 const boxShadowChatWindow = "0 4px 10px rgba(0, 0, 0, 0.2)";
 const boxShadowChatWindowButton = "0 1px 2px rgba(0, 0, 0, 0.2)";
 
-const logo = "https://dev.promptengineers.ai/favicon.ico";
+const logo = "https://dev.promptengineers.ai/192.png";
 
 const theme = {
     button: {
@@ -21,9 +21,11 @@ const theme = {
         position: "right",
         boxShadow: boxShadow,
         icon: {
-            padding: "8px",
-            height: "40px",
             src: logo,
+            padding: "8px",
+            width: "40px",
+            height: "40px",
+            borderRadius: "8px",
         },
     },
     chatWindow: {
@@ -78,6 +80,7 @@ const theme = {
             src: logo,
             height: "150px",
             width: "140px",
+            borderRadius: "10px",
         },
         gridButton: {
             padding: "10px",

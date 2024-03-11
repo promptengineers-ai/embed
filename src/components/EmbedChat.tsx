@@ -107,10 +107,17 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                             defaultTheme.button.icon.src
                         }
                         alt="Logo"
-                        height={
-                            theme?.button?.icon?.height ||
-                            defaultTheme.button.icon.height
-                        }
+                        style={{
+                            width:
+                                theme?.button?.icon?.width ||
+                                defaultTheme.button.icon.width,
+                            height:
+                                theme?.button?.icon?.height ||
+                                defaultTheme.button.icon.height,
+                            borderRadius:
+                                theme?.button?.icon?.borderRadius ||
+                                defaultTheme.button.icon.borderRadius,
+                        }}
                     />
                 )}
             </MainButton>
@@ -142,13 +149,26 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme, welcome }) => {
                                 >
                                     <img
                                         src={
-                                            theme?.button?.icon?.src ||
-                                            defaultTheme.button.icon.src
+                                            theme?.chatWindow?.icon?.src ||
+                                            defaultTheme.chatWindow.icon.src
                                         }
-                                        alt="Descriptive Text"
+                                        alt="logo"
                                         style={{
-                                            width: "110px",
-                                            height: "120px",
+                                            width:
+                                                theme?.chatWindow?.icon
+                                                    ?.width ||
+                                                defaultTheme.chatWindow.icon
+                                                    .width,
+                                            height:
+                                                theme?.chatWindow?.icon
+                                                    ?.height ||
+                                                defaultTheme.chatWindow.icon
+                                                    .height,
+                                            borderRadius:
+                                                theme?.chatWindow?.icon
+                                                    ?.borderRadius ||
+                                                defaultTheme.chatWindow.icon
+                                                    .borderRadius,
                                         }} // Adjust the size as needed
                                     />
                                 </div>

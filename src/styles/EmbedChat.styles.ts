@@ -64,7 +64,7 @@ export const ChatWindow = styled.div<ThemeProps>`
         props.theme?.chatWindow?.fontFamily || theme.chatWindow.fontFamily};
 
     /* Media query for mobile devices */
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
         bottom: 0;
         right: 0;
         width: 100vw; /* 100% of viewport width */
