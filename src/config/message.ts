@@ -19,9 +19,11 @@ export const userMessageStyle = (theme?: any) => {
 
 export const assistMessageStyle = (theme?: any) => {
     return {
-        backgroundColor: theme?.chatWindow?.botMessage?.backgroundColor ||
+        backgroundColor:
+            theme?.chatWindow?.botMessage?.backgroundColor ||
             defaultTheme.chatWindow.botMessage.backgroundColor,
-        color: theme?.chatWindow?.botMessage?.backgroundColor ||
+        color:
+            theme?.chatWindow?.botMessage?.textColor ||
             defaultTheme.chatWindow.botMessage.textColor,
         borderRadius: "5px",
         padding: "5px 10px",
@@ -37,13 +39,11 @@ export const topRowDivStyle = {
 }
 
 export const userMessageTitleStyle = {
-    color: "white",
     fontSize: "18px",
     margin: "5px 0px",
 };
 
 export const assistantMessageTitleStyle = {
-    color: "black",
     fontSize: "18px",
     margin: "5px 0px",
 };

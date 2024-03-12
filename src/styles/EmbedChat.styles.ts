@@ -38,6 +38,7 @@ export const MainButton = styled.div<ThemeProps>`
 
 export const ChatWindow = styled.div<ThemeProps>`
     position: fixed;
+    z-index: 9999;
     bottom: 75px; /* Adjust based on your button's size and desired location */
     right: 20px; /* Or 'left: 20px;' depending on your 'position' prop */
     width: ${(props) =>
@@ -189,20 +190,20 @@ export const ControlButton = styled.button<ThemeProps>`
 `;
 
 export const MessageContent = styled.div`
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: auto; // Scroll horizontally only if needed
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none; // IE and Edge
-  scrollbar-width: none; // Firefox
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto; // Scroll horizontally only if needed
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none; // IE and Edge
+    scrollbar-width: none; // Firefox
 `;
 
 // Add some simple styling for messages
 export const Message = styled.div<{ sender: 'user' | 'bot' }>`
     background-color: ${props => props.sender === 'user' ? theme.button.backgroundColor : '#ECECEC'};
-    color: ${props => props.sender === 'user' ? 'white' : 'black'};
+    color: ${props => props.sender === 'user' ? 'white' : 'purple'};
     border-radius: 7px;
     padding: 5px 10px;
     margin-bottom: 10px;

@@ -22,7 +22,6 @@ import {
     GridButton,
 } from "../styles/Welcome.styles";
 import { useChatContext } from "../contexts/ChatContext";
-import { Welcome } from "../types";
 import DOMPurify from "dompurify";
 
 interface EmbedChatProps {
