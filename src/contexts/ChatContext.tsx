@@ -16,6 +16,7 @@ const defaultChatContextValue: ChatContextType = {
     loading: false,
     setLoading: () => {},
     chatboxRef: { current: null },
+    chatInputRef: { current: null },
     userInputRef: { current: null },
     messages: [],
     setMessages: () => {},
@@ -39,6 +40,7 @@ export default function ChatProvider({
     id: string;
     theme: any;
 }) {
+    const chatInputRef = useRef<HTMLInputElement | null>(null);
     const chatboxRef = useRef<HTMLInputElement | null>(null);
     const [chatboxRefIsEmpty, setChatboxRefIsEmpty] = useState(true);
     const userInputRef = useRef<HTMLInputElement | null>(null);
@@ -96,7 +98,8 @@ export default function ChatProvider({
         async (streamMessages: { role: string; content: string }[]) => {
             setMessages(streamMessages);
             setChatPayload((prev) => ({ ...prev, query: "" }));
-            userInputRef.current?.focus();
+            setLoading(false);
+            chatInputRef.current?.focus();
         },
         []
     );
@@ -106,14 +109,11 @@ export default function ChatProvider({
             alert("Please enter a message first.");
             return;
         }
+        setLoading(true);
         setChatboxRefIsEmpty(false);
 
         // Create a copy of the current messages
         const updatedMessages = [...messages];
-
-        // Append the user's message to the conversation
-        updatedMessages[0].content =
-            localStorage.getItem("systemMessage") || chatPayload.systemMessage;
         updatedMessages.push({ role: "user", content: chatPayload.query });
         const payload = { messages: updatedMessages };
 
@@ -150,6 +150,7 @@ export default function ChatProvider({
                 return {
                     loading,
                     chatboxRef,
+                    chatInputRef,
                     userInputRef,
                     messages,
                     chatPayload,
@@ -165,6 +166,7 @@ export default function ChatProvider({
             }, [
                 loading,
                 chatboxRef,
+                chatInputRef,
                 userInputRef,
                 messages,
                 chatPayload,

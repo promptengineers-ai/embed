@@ -148,6 +148,47 @@ export const SubmitButton = styled.button<ThemeProps>`
     }
 `;
 
+export const StyledSpinner = styled.svg<ThemeProps>`
+    animation: rotate 1s linear infinite;
+    margin: ${(props) =>
+        props.theme?.chatWindow?.chatInput?.spinner?.margin ||
+        theme.chatWindow.chatInput.spinner.margin};
+    width: ${(props) =>
+        props.theme?.chatWindow?.chatInput?.spinner?.width ||
+        theme.chatWindow.chatInput.spinner.width};
+    height: ${(props) =>
+        props.theme?.chatWindow?.chatInput?.spinner?.height ||
+        theme.chatWindow.chatInput.spinner.height};
+
+    & .path {
+        stroke: ${(props) =>
+            props.theme?.chatWindow?.chatInput?.spinner.backgroundColor ||
+            theme.chatWindow.chatInput.spinner.backgroundColor};
+        stroke-linecap: round;
+        animation: dash 1.5s ease-in-out infinite;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes dash {
+        0% {
+            stroke-dasharray: 1, 150;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -124;
+        }
+    }
+`;
+
 export const ControlButtons = styled.div`
     display: flex;
     justify-content: right; // Align buttons to the left

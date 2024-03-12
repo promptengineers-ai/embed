@@ -23,6 +23,7 @@ import {
 } from "../styles/Welcome.styles";
 import { useChatContext } from "../contexts/ChatContext";
 import DOMPurify from "dompurify";
+import Spinner from "./Spinner";
 
 interface EmbedChatProps {
     theme?: any;
@@ -30,16 +31,17 @@ interface EmbedChatProps {
 
 const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
     const {
+        loading,
         messages,
         setMessages,
         chatboxRef,
+        chatInputRef,
         chatboxRefIsEmpty,
         chatPayload,
         setChatPayload,
         sendChatPayload,
         resetChat,
     } = useChatContext();
-    const chatInputRef = useRef<HTMLTextAreaElement>(null);
     const [isChatOpen, setChatOpen] = useState(false);
     const [inputRows, setInputRows] = useState(1);
 
@@ -206,6 +208,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                     </ChatContent>
                     <InputArea>
                         <ChatInput
+                            // disabled={loading}
                             ref={chatInputRef}
                             rows={inputRows}
                             value={chatPayload.query}
@@ -222,12 +225,17 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                             onKeyDown={handleKeyDown}
                             theme={theme}
                         />
-                        <SubmitButton
-                            onClick={() => sendChatPayload()}
-                            theme={theme}
-                        >
-                            <FiSendIcon />
-                        </SubmitButton>
+                        {loading ? (
+                            <Spinner theme={theme} />
+                        ) : (
+                            <SubmitButton
+                                onClick={() => sendChatPayload()}
+                                theme={theme}
+                                disabled={loading}
+                            >
+                                <FiSendIcon />
+                            </SubmitButton>
+                        )}
                     </InputArea>
                 </ChatWindow>
             )}

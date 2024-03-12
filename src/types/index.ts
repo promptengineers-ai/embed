@@ -2,11 +2,12 @@ export type ChatContextType = {
     loading: boolean;
     setLoading: (loading: boolean) => void;
     chatboxRef: React.MutableRefObject<HTMLInputElement | null>;
+    chatInputRef: React.MutableRefObject<HTMLInputElement | null>;
     userInputRef: React.MutableRefObject<HTMLInputElement | null>;
     messages: { role: string; content: string }[];
     setMessages: (messages: { role: string; content: string }[]) => void;
     sendChatPayload: () => void;
-    chatPayload: {query: string;};
+    chatPayload: { query: string };
     setChatPayload: (payload: any) => void;
     handleChatboxClick: (e: MouseEvent) => void;
     chatboxRefIsEmpty: boolean;

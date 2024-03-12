@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>My Website</title>
-        <link rel="icon" href="./favicon.ico" type="image/x-icon">  
-        
+        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     </head>
-    <body style="background-color: lightgray;">
+    <body style="background-color: lightgray">
         <main>
             <h1>Welcome to My Website</h1>
         </main>
 
-        <script src="http://localhost:3000/embed/static/js/bundle.js"></script>
+        <script src="http://localhost:3001/embed/static/js/bundle.js"></script>
         <script>
             Bot({
-                id: '65ed45874745d458cbf57254', 
-                apiHost: 'http://localhost:8000',
+                id: "65ed45874745d458cbf57254",
+                apiHost: "http://localhost:8000",
                 theme: {
                     button: {
                         hoverColor: "#369cd6",
+                        height: "50px",
+                        width: "50px",
                         icon: {
-                            height: '35px',
-                            src: 'https://spacer.adaptive.biz/favicon.ico'
-                        },
+                            height: "60px",
+                            width: "60px",
+                        }
                     },
                     chatWindow: {
-                        title: 'Spacer AI Assistant',
+                        title: "Spacer AI Assistant",
                         submitButton: {
-                            hoverColor: '#369cd6',
-                        }
-                    }
-                }
+                            hoverColor: "#369cd6",
+                        },
+                    },
+                },
             });
         </script>
     </body>

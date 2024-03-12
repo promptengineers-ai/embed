@@ -110,6 +110,13 @@ const theme = {
             backgroundColor: "#ffffff",
             textColor: "#303235",
             fontSize: "14px",
+            spinner: {
+                backgroundColor: primaryColor,
+                height: "25px",
+                width: "25px",
+                margin: "0px 4px",
+                strokeWidth: "5",
+            },
         },
         submitButton: {
             backgroundColor: primaryColor,
