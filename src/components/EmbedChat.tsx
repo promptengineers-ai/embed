@@ -20,6 +20,7 @@ import {
     WelcomeParagraph,
     ButtonGrid,
     GridButton,
+    StarterButton,
 } from "../styles/Welcome.styles";
 import { useChatContext } from "../contexts/ChatContext";
 import DOMPurify from "dompurify";
@@ -203,6 +204,59 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                         }
                                     )}
                                 </ButtonGrid>
+                                {theme?.chatWindow?.starters && (
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            overflowX: "auto",
+                                            scrollbarWidth: "thin",
+                                            marginBottom: "10px",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                            }}
+                                        >
+                                            {theme?.chatWindow?.starters?.map(
+                                                (item: any, index: number) => (
+                                                    <StarterButton
+                                                        theme={theme}
+                                                        key={index}
+                                                        onClick={() =>
+                                                            setChatPayload(
+                                                                (
+                                                                    prev: any
+                                                                ) => ({
+                                                                    ...prev,
+                                                                    query: item.template,
+                                                                })
+                                                            )
+                                                        }
+                                                    >
+                                                        <div
+                                                            style={{
+                                                                fontWeight:
+                                                                    "bold",
+                                                            }}
+                                                        >
+                                                            {item.label}
+                                                        </div>
+                                                        <div
+                                                            style={{
+                                                                fontSize:
+                                                                    "smaller",
+                                                            }}
+                                                        >
+                                                            {item.template}
+                                                        </div>
+                                                    </StarterButton>
+                                                )
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </WelcomeArea>
                         )}
                     </ChatContent>

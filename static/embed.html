@@ -19,18 +19,59 @@
                 apiHost: "http://localhost:8000",
                 theme: {
                     button: {
-                        hoverColor: "#369cd6",
-                        height: "50px",
-                        width: "50px",
+                        backgroundColor: "#373a36",
+                        hoverColor: "#6ab445",
                         icon: {
-                            height: "60px",
-                            width: "60px",
-                        }
+                            src: "https://avatars.githubusercontent.com/u/11790256?s=200&v=4",
+                        },
                     },
                     chatWindow: {
-                        title: "Spacer AI Assistant",
+                        title: "Form.io AI Assistant",
+                        welcomeButtons: [
+                            {
+                                label: "Github",
+                                href: "https://github.com/formio",
+                            },
+                            {
+                                label: "Documentation",
+                                href: "https://help.form.io",
+                            },
+                        ],
+                        starters: [
+                            {
+                                label: "Submissions",
+                                template: "How do I view my submissions?",
+                                variables: []
+                            },
+                            {
+                                label: "Remote Stages",
+                                template: "How to connect a remote API server?",
+                                variables: []
+                            },
+                            {
+                                label: "Projects & Forms",
+                                template: "How do projects and forms work?",
+                                variables: []
+                            },
+                            {
+                                label: "Need Deployment Assistance",
+                                template: "What is the best way to deploy my API server?",
+                                variables: []
+                            },
+                            {
+                                label: "PDF server",
+                                template: "Do I need a PDF server to generate PDFs?",
+                                variables: []
+                            }
+                        ],
+                        icon: {
+                            src: "https://form.io/wp-content/themes/formio/images/illustrations/illustration-open-source-hand.svg",
+                        },
+                        userMessage: { backgroundColor: "#373a36" },
+                        botMessage: { backgroundColor: "#f0f0f0" },
                         submitButton: {
-                            hoverColor: "#369cd6",
+                            backgroundColor: "#373a36",
+                            hoverColor: "#6ab445",
                         },
                     },
                 },
