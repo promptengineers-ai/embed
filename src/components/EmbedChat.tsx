@@ -184,33 +184,34 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                                 .welcomeMessage}
                                     </WelcomeParagraph>
                                 </div>
-                                <ButtonGrid>
-                                    {calculatedButtons.map(
-                                        (item: any, index: number) => {
-                                            return (
-                                                <GridButton
-                                                    theme={theme}
-                                                    key={index}
-                                                    onClick={() =>
-                                                        window.open(
-                                                            item.href,
-                                                            "_blank"
-                                                        )
-                                                    }
-                                                >
-                                                    {item.label}
-                                                </GridButton>
-                                            );
-                                        }
-                                    )}
-                                </ButtonGrid>
+                                {calculatedButtons.length > 0 && (
+                                    <ButtonGrid>
+                                        {calculatedButtons.map(
+                                            (item: any, index: number) => {
+                                                return (
+                                                    <GridButton
+                                                        theme={theme}
+                                                        key={index}
+                                                        onClick={() =>
+                                                            window.open(
+                                                                item.href,
+                                                                "_blank"
+                                                            )
+                                                        }
+                                                    >
+                                                        {item.label}
+                                                    </GridButton>
+                                                );
+                                            }
+                                        )}
+                                    </ButtonGrid>
+                                )}
                                 {theme?.chatWindow?.starters && (
                                     <div
                                         style={{
                                             display: "flex",
                                             overflowX: "auto",
                                             scrollbarWidth: "thin",
-                                            marginBottom: "10px",
                                         }}
                                     >
                                         <div
