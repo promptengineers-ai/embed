@@ -30,8 +30,7 @@ export const MainButton = styled.div<ThemeProps>`
     width: ${(props) => props.theme?.button?.width || theme.button.width};
     height: ${(props) =>
         props.theme?.button?.height ||
-        theme.button.height}; // Set a fixed height to form a circle
-
+        theme.button.height};
     &:hover {
         background-color: ${(props) =>
             props.theme?.button?.hoverColor || theme.button.hoverColor};
