@@ -14,7 +14,8 @@ export const MainButton = styled.div<ThemeProps>`
     ${(props) => props.theme?.position || "right"}: 20px;
     background-color: ${(props) =>
         props.theme?.button?.backgroundColor || theme.button.backgroundColor};
-    color: white;
+    color: ${(props) =>
+        props.theme?.button?.icon?.color || theme.button.icon.color};
     display: flex; // Use flexbox to center content
     align-items: center; // Center vertically
     justify-content: center; // Center horizontally
@@ -25,6 +26,7 @@ export const MainButton = styled.div<ThemeProps>`
     box-shadow: ${(props) => props.theme?.button?.width || theme.button.width};
     transition: background-color 0.3s;
     font-family: sans-serif;
+    font-size: ${(props) => props.theme?.button?.icon?.fontSize || theme.button.icon.fontSize};
     width: ${(props) => props.theme?.button?.width || theme.button.width};
     height: ${(props) =>
         props.theme?.button?.height ||
@@ -39,8 +41,10 @@ export const MainButton = styled.div<ThemeProps>`
 export const ChatWindow = styled.div<ThemeProps>`
     position: fixed;
     z-index: 9999;
-    bottom: 75px; /* Adjust based on your button's size and desired location */
-    right: 20px; /* Or 'left: 20px;' depending on your 'position' prop */
+    bottom: ${(props) =>
+        props.theme?.chatWindow?.bottom || theme.chatWindow.bottom};
+    right: ${(props) =>
+        props.theme?.chatWindow?.right || theme.chatWindow.right};
     width: ${(props) =>
         props.theme?.chatWindow?.width ||
         theme.chatWindow.width}; /* Or any other size */
@@ -68,9 +72,9 @@ export const ChatWindow = styled.div<ThemeProps>`
     @media (max-width: 600px) {
         bottom: 0;
         right: 0;
-        width: 100vw; /* 100% of viewport width */
-        height: 100vh; /* 100% of viewport height */
-        border-radius: 0; /* Optional: remove border radius for full screen mode */
+        width: 100vw;
+        height: 100%;
+        border-radius: 0;
     }
 `;
 
@@ -253,8 +257,8 @@ export const Message = styled.div<{ sender: 'user' | 'bot' }>`
 `;
 
 export const iconStyle = `
-  font-size: 1.5em; // Adjust as needed
-  line-height: 1; // Reset line-height to remove any extra space
+  font-size: 1.5em;
+  line-height: 1;
 `;
 export const FiSendIcon = styled(FiSend)`${iconStyle}`;
 export const SiOpenaiIcon = styled(SiOpenai)`${iconStyle}`;

@@ -25,6 +25,7 @@ import {
 import { useChatContext } from "../contexts/ChatContext";
 import DOMPurify from "dompurify";
 import Spinner from "./Spinner";
+import { truncate } from "../utils/format";
 
 interface EmbedChatProps {
     theme?: any;
@@ -99,7 +100,14 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
             <MainButton onClick={toggleChat} theme={theme}>
                 {isChatOpen ? (
                     <AiOutlineCloseIcon
-                        style={{ padding: defaultTheme.button.icon.padding }}
+                        style={{
+                            padding:
+                                theme?.button?.padding ||
+                                defaultTheme.button.icon.padding,
+                            fontSize:
+                                theme?.button?.fontSize ||
+                                defaultTheme.button.icon.fontSize,
+                        }}
                     />
                 ) : (
                     <img
@@ -249,8 +257,14 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                                                 fontSize:
                                                                     "smaller",
                                                             }}
+                                                            title={
+                                                                item.template
+                                                            }
                                                         >
-                                                            {item.template}
+                                                            {truncate(
+                                                                item.template,
+                                                                40
+                                                            )}
                                                         </div>
                                                     </StarterButton>
                                                 )
