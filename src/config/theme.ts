@@ -23,7 +23,6 @@ const theme = {
             src: logo,
             fontSize: "20px",
             color: "white",
-            padding: "8px",
             width: "40px",
             height: "40px",
             borderRadius: "8px",

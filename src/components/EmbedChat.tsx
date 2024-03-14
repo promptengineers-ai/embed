@@ -99,7 +99,15 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
         <>
             <MainButton onClick={toggleChat} theme={theme}>
                 {isChatOpen ? (
-                    <AiOutlineCloseIcon />
+                    <AiOutlineCloseIcon
+                        style={{
+                            padding:
+                                theme?.button?.padding,
+                            fontSize:
+                                theme?.button?.fontSize ||
+                                defaultTheme.button.icon.fontSize,
+                        }}
+                    />
                 ) : (
                     <img
                         src={
