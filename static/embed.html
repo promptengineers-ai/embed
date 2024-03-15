@@ -12,62 +12,9 @@
             <h1>Welcome to My Website</h1>
         </main>
 
-        <script src="http://localhost:3000/embed/static/js/bundle.js"></script>
+        <script src="http://localhost:3002/embed/static/js/bundle.js"></script>
         <script>
-            Bot({
-                id: "65ed45874745d458cbf57254",
-                apiHost: "http://localhost:8000",
-                theme: {
-                    button: {
-                        backgroundColor: "#373a36",
-                        hoverColor: "#6ab445",
-                        fontSize: "60px",
-                        icon: {
-                            src: "https://avatars.githubusercontent.com/u/11790256?s=200&v=4",
-                        },
-                    },
-                    chatWindow: {
-                        title: "Form.io AI Assistant",
-                        welcomeButtons: [],
-                        starters: [
-                            {
-                                label: "Submissions",
-                                template: "How does your agency assess my business's current state to identify opportunities for AI, software development, and marketing enhancements?",
-                                variables: []
-                            },
-                            {
-                                label: "Remote Stages",
-                                template: "How to connect a remote API server?",
-                                variables: []
-                            },
-                            {
-                                label: "Projects & Forms",
-                                template: "How do projects and forms work?",
-                                variables: []
-                            },
-                            {
-                                label: "Need Deployment Assistance",
-                                template: "What is the best way to deploy my API server?",
-                                variables: []
-                            },
-                            {
-                                label: "PDF server",
-                                template: "Do I need a PDF server to generate PDFs?",
-                                variables: []
-                            }
-                        ],
-                        icon: {
-                            src: "https://form.io/wp-content/themes/formio/images/illustrations/illustration-open-source-hand.svg",
-                        },
-                        userMessage: { backgroundColor: "#373a36" },
-                        botMessage: { backgroundColor: "#f0f0f0" },
-                        submitButton: {
-                            backgroundColor: "#373a36",
-                            hoverColor: "#6ab445",
-                        },
-                    },
-                },
-            });
+            Bot({id: "65ed45874745d458cbf57254", apiHost: "http://localhost:8000"});
         </script>
     </body>
 </html>
