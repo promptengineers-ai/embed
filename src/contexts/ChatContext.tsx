@@ -50,7 +50,7 @@ export default function ChatProvider({
         query: "",
         history_id: "",
     });
-    const [messages, setMessages] = useState([{ role: "system", content: "" }]);
+    const [messages, setMessages] = useState<Message[]>([]);
 
     const resetChat = useCallback(() => {
         if (chatboxRefIsEmpty) {
@@ -59,7 +59,8 @@ export default function ChatProvider({
                 chatboxRef.current.removeChild(chatboxRef.current.firstChild);
             }
             localStorage.removeItem("chatbox");
-            setMessages([{ role: "system", content: "" }]);
+            localStorage.removeItem("messages");
+            setMessages([]);
             setChatPayload((prev) => ({
                 ...prev,
                 history_id: "",
