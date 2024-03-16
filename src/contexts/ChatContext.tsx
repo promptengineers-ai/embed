@@ -8,7 +8,7 @@ import {
     useMemo,
 } from "react";
 import { ChatClient } from "../utils/api";
-import { ChatContextType } from "../types";
+import { ChatContextType, Message } from "../types";
 import { IContextProvider } from "../interfaces";
 import { log } from "../utils/log";
 
@@ -21,7 +21,7 @@ const defaultChatContextValue: ChatContextType = {
     messages: [],
     setMessages: () => {},
     sendChatPayload: () => {},
-    chatPayload: { query: "" },
+    chatPayload: { query: "", history_id: "" },
     setChatPayload: () => {},
     handleChatboxClick: () => {},
     chatboxRefIsEmpty: true,
@@ -47,9 +47,8 @@ export default function ChatProvider({
     const userInputRef = useRef<HTMLInputElement | null>(null);
     const [loading, setLoading] = useState(false);
     const [chatPayload, setChatPayload] = useState({
-        systemMessage: "You are a helpful assistant.",
         query: "",
-        temperature: 0,
+        history_id: "",
     });
     const [messages, setMessages] = useState([{ role: "system", content: "" }]);
 
@@ -63,8 +62,7 @@ export default function ChatProvider({
             setMessages([{ role: "system", content: "" }]);
             setChatPayload((prev) => ({
                 ...prev,
-                _id: "",
-                functions: [],
+                history_id: "",
             }));
             setLoading(false);
         }
@@ -96,15 +94,27 @@ export default function ChatProvider({
         }
     }
 
-    const updateCallback = useCallback(
-        async (streamMessages: { role: string; content: string }[]) => {
-            setMessages(streamMessages);
-            setChatPayload((prev) => ({ ...prev, query: "" }));
-            setLoading(false);
-            chatInputRef.current?.focus();
-        },
-        []
-    );
+    async function updateCallback(streamMessages: Message[]) {
+        setMessages(streamMessages);
+        setLoading(false);
+        if (!chatPayload.history_id) {
+            const history = await chatClient.create({
+                messages: streamMessages,
+            });
+            log("contexts.ChatContext.updateCallback", history, "Created");
+            setChatPayload({
+                ...chatPayload,
+                query: "",
+                history_id: history._id,
+            });
+        } else {
+            const history = await chatClient.update(chatPayload.history_id, {
+                messages: streamMessages,
+            });
+            log("contexts.ChatContext.updateCallback", history, "Updated");
+        }
+        chatInputRef.current?.focus();
+    }
 
     const sendChatPayload = useCallback(() => {
         if (!chatPayload.query) {
@@ -119,7 +129,7 @@ export default function ChatProvider({
         updatedMessages.push({ role: "user", content: chatPayload.query });
         const payload = { messages: updatedMessages };
 
-        
+        // Send the payload to the chat client
         chatClient.sendChatStreamMessage(payload, updateCallback, () =>
             setLoading(false)
         );

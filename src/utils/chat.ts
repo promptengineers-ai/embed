@@ -11,6 +11,7 @@ import {
     docContentStyle,
 } from "../config/message";
 import { setStyles } from "./style";
+import { Message } from "../types";
 
 const constructBubbleMessage = (
     sender: string,
@@ -27,9 +28,7 @@ const constructBubbleMessage = (
     return `${src ? image(src) : "🤖 "} ${label ? label : "Assistant:"}`;
 };
 
-export const getLastUserIndex = (
-    messages: { role: string; content: string }[]
-): number => {
+export const getLastUserIndex = (messages: Message[]): number => {
     for (let i = messages.length - 1; i >= 0; i--) {
         if (messages[i].role === "user") {
             // Return the index if the object property "role" is equal to "user"
@@ -49,10 +48,7 @@ export function constructDeleteMessageButton() {
     return deleteButton;
 }
 
-export function constructUserMessageDiv(
-    messages: { role: string; content: string }[],
-    theme: any
-) {
+export function constructUserMessageDiv(messages: Message[], theme: any) {
     let userMessageDiv = document.createElement("div");
     userMessageDiv.className = "message user";
     setStyles(userMessageDiv, userMessageStyle(theme));
@@ -120,11 +116,11 @@ export function constructSpinner() {
 
 export function readStreamResponse(
     response: any,
-    messages: { role: string; content: string }[],
+    messages: Message[],
     chatbox: HTMLDivElement,
     assistantMessageDiv: HTMLElement, // Now it's passed as a parameter
     spinner: HTMLElement, // Now it's passed as a parameter
-    cb: (streamMessages: { role: string; content: string }[]) => void
+    cb: (streamMessages: Message[]) => void
 ) {
     let reader = response.body?.getReader();
     let decoder = new TextDecoder();
@@ -143,8 +139,8 @@ export function readStreamResponse(
             if (done) {
                 log("utils.chat.readStreamResponse", messages, "Messages");
                 cb(messages);
-				localStorage.setItem("chatbox", chatbox.innerHTML);
-				localStorage.setItem("messages", JSON.stringify(messages));
+                localStorage.setItem("chatbox", chatbox.innerHTML);
+                localStorage.setItem("messages", JSON.stringify(messages));
                 spinner.remove(); // remove spinner when stream is complete
                 return Promise.resolve(); // return a resolved Promise
             }
