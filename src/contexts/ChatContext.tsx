@@ -40,6 +40,7 @@ export default function ChatProvider({
     id: string;
     theme: any;
 }) {
+    const chatClient = new ChatClient(apiHost, id, theme);
     const chatInputRef = useRef<HTMLInputElement | null>(null);
     const chatboxRef = useRef<HTMLInputElement | null>(null);
     const [chatboxRefIsEmpty, setChatboxRefIsEmpty] = useState(true);
@@ -65,6 +66,7 @@ export default function ChatProvider({
                 _id: "",
                 functions: [],
             }));
+            setLoading(false);
         }
         // eslint-disable-next-line
     }, []);
@@ -117,8 +119,8 @@ export default function ChatProvider({
         updatedMessages.push({ role: "user", content: chatPayload.query });
         const payload = { messages: updatedMessages };
 
-        const chatClient = new ChatClient(apiHost, "", theme);
-        chatClient.sendChatStreamMessage(id, payload, updateCallback, () =>
+        
+        chatClient.sendChatStreamMessage(payload, updateCallback, () =>
             setLoading(false)
         );
     }, [apiHost, chatPayload, id, messages, theme, updateCallback]);

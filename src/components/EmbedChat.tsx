@@ -34,7 +34,6 @@ interface EmbedChatProps {
 const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
     const {
         loading,
-        messages,
         setMessages,
         chatboxRef,
         chatInputRef,

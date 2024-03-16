@@ -30,7 +30,6 @@ export class ChatClient {
 	}
 
 	public async sendChatStreamMessage(
-		botId: string,
         payload: {messages: {role: string, content: string}[]},
         cb: (streamMessages: {role: string, content: string}[]) => void,
         onError: () => void
@@ -60,7 +59,7 @@ export class ChatClient {
         chatbox.appendChild(assistantMessageDiv);
         chatbox.scrollTop = chatbox.scrollHeight
 
-        fetch(`${this.apiUrl}/api/v1/bots/${this.botId || botId}/chat`, {
+        fetch(`${this.apiUrl}/api/v1/bots/${this.botId}/chat`, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			signal: this.controller.signal,
