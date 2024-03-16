@@ -9,7 +9,7 @@ import {
 } from "react";
 import { merge } from "lodash";
 import { ChatClient } from "../utils/api";
-import { ChatContextType } from "../types";
+import { ChatContextType, Message } from "../types";
 import { IContextProvider } from "../interfaces";
 import { log } from "../utils/log";
 import defaultTheme from "../config/theme";
@@ -96,15 +96,12 @@ export default function ChatProvider({
         }
     }
 
-    const updateCallback = useCallback(
-        async (streamMessages: { role: string; content: string }[]) => {
-            setMessages(streamMessages);
-            setChatPayload((prev) => ({ ...prev, query: "" }));
-            setLoading(false);
-            chatInputRef.current?.focus();
-        },
-        []
-    );
+    const updateCallback = useCallback(async (streamMessages: Message[]) => {
+        setMessages(streamMessages);
+        setChatPayload((prev) => ({ ...prev, query: "" }));
+        setLoading(false);
+        chatInputRef.current?.focus();
+    }, []);
 
     const sendChatPayload = useCallback(() => {
         if (!chatPayload.query) {

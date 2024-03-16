@@ -4,6 +4,7 @@ import {
   readStreamResponse,
 } from './chat';
 import { log } from '../utils/log';
+import { Message } from '../types';
 
 /**----------------------------------------------------------
  * Send a message to the server and get a response
@@ -30,8 +31,8 @@ export class ChatClient {
     }
 
     public async sendChatStreamMessage(
-        payload: { messages: { role: string; content: string }[] },
-        cb: (streamMessages: { role: string; content: string }[]) => void,
+        payload: { messages: Message[] },
+        cb: (streamMessages: Message[]) => void,
         onError: () => void
     ) {
         // Abort any ongoing requests

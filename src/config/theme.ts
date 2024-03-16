@@ -97,15 +97,11 @@ const theme = {
             backgroundColor: primaryColor,
             textColor: "#fff",
             showAvatar: true,
-            avatarSrc:
-                "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
         },
         botMessage: {
             backgroundColor: tertiaryColor,
             textColor: "#000",
             showAvatar: true,
-            avatarSrc:
-                "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
         },
         chatInput: {
             placeholder: "Type your question here...",
