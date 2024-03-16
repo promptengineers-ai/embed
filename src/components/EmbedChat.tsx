@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-import defaultTheme from "../config/theme";
+import { useState, useEffect } from "react";
 import {
     MainButton,
     ChatWindow,
@@ -27,14 +26,10 @@ import DOMPurify from "dompurify";
 import Spinner from "./Spinner";
 import { truncate } from "../utils/format";
 
-interface EmbedChatProps {
-    theme?: any;
-}
-
-const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
+const EmbedChat: React.FC = () => {
     const {
+        merged,
         loading,
-        messages,
         setMessages,
         chatboxRef,
         chatInputRef,
@@ -91,45 +86,30 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
         chatInputRef.current?.focus();
     };
 
-    const calculatedButtons =
-        theme?.chatWindow?.welcomeButtons ||
-        defaultTheme.chatWindow.welcomeButtons;
-
     return (
         <>
-            <MainButton onClick={toggleChat} theme={theme}>
+            <MainButton onClick={toggleChat} theme={merged}>
                 {isChatOpen ? (
                     <AiOutlineCloseIcon
                         style={{
-                            padding: theme?.button?.padding,
-                            fontSize:
-                                theme?.button?.fontSize ||
-                                defaultTheme.button.icon.fontSize,
+                            padding: merged.button.padding,
+                            fontSize: merged.button.icon.fontSize,
                         }}
                     />
                 ) : (
                     <img
-                        src={
-                            theme?.button?.icon?.src ||
-                            defaultTheme.button.icon.src
-                        }
+                        src={merged.button.icon.src}
                         alt="Logo"
                         style={{
-                            width:
-                                theme?.button?.icon?.width ||
-                                defaultTheme.button.icon.width,
-                            height:
-                                theme?.button?.icon?.height ||
-                                defaultTheme.button.icon.height,
-                            borderRadius:
-                                theme?.button?.icon?.borderRadius ||
-                                defaultTheme.button.icon.borderRadius,
+                            width: merged.button.icon.width,
+                            height: merged.button.icon.height,
+                            borderRadius: merged.button.icon.borderRadius,
                         }}
                     />
                 )}
             </MainButton>
             {isChatOpen && (
-                <ChatWindow theme={theme}>
+                <ChatWindow theme={merged}>
                     <ControlButtons>
                         {!chatboxRefIsEmpty && (
                             <ControlButton onClick={resetChat}>
@@ -140,7 +120,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                             <SettingsIcon fontSize={"20px"} />
                         </ControlButton>
                         {window.innerWidth < 768 && (
-                            <ControlButton onClick={toggleChat} theme={theme}>
+                            <ControlButton onClick={toggleChat} theme={merged}>
                                 <AiOutlineCloseIcon />
                             </ControlButton>
                         )}
@@ -155,48 +135,34 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                     }}
                                 >
                                     <img
-                                        src={
-                                            theme?.chatWindow?.icon?.src ||
-                                            defaultTheme.chatWindow.icon.src
-                                        }
+                                        src={merged.chatWindow.icon.src}
                                         alt="logo"
                                         style={{
-                                            width:
-                                                theme?.chatWindow?.icon
-                                                    ?.width ||
-                                                defaultTheme.chatWindow.icon
-                                                    .width,
-                                            height:
-                                                theme?.chatWindow?.icon
-                                                    ?.height ||
-                                                defaultTheme.chatWindow.icon
-                                                    .height,
+                                            width: merged.chatWindow.icon.width,
+                                            height: merged.chatWindow.icon
+                                                .height,
                                             borderRadius:
-                                                theme?.chatWindow?.icon
-                                                    ?.borderRadius ||
-                                                defaultTheme.chatWindow.icon
+                                                merged.chatWindow.icon
                                                     .borderRadius,
-                                        }} // Adjust the size as needed
+                                        }}
                                     />
                                 </div>
                                 <div style={{ textAlign: "center" }}>
                                     <WelcomeHeading>
-                                        {theme?.chatWindow?.title ||
-                                            defaultTheme.chatWindow.title}
+                                        {merged.chatWindow.title}
                                     </WelcomeHeading>
                                     <WelcomeParagraph>
-                                        {theme?.chatWindow?.welcomeMessage ||
-                                            defaultTheme.chatWindow
-                                                .welcomeMessage}
+                                        {merged.chatWindow.welcomeMessage}
                                     </WelcomeParagraph>
                                 </div>
-                                {calculatedButtons.length > 0 && (
+                                {merged.chatWindow.welcomeButtons.length >
+                                    0 && (
                                     <ButtonGrid>
-                                        {calculatedButtons.map(
+                                        {merged.chatWindow.welcomeButtons.map(
                                             (item: any, index: number) => {
                                                 return (
                                                     <GridButton
-                                                        theme={theme}
+                                                        theme={merged}
                                                         key={index}
                                                         onClick={() =>
                                                             window.open(
@@ -212,7 +178,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                         )}
                                     </ButtonGrid>
                                 )}
-                                {theme?.chatWindow?.starters && (
+                                {merged.chatWindow.starters && (
                                     <div
                                         style={{
                                             display: "flex",
@@ -226,10 +192,10 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                                 flexDirection: "row",
                                             }}
                                         >
-                                            {theme?.chatWindow?.starters?.map(
+                                            {merged.chatWindow.starters?.map(
                                                 (item: any, index: number) => (
                                                     <StarterButton
-                                                        theme={theme}
+                                                        theme={merged}
                                                         key={index}
                                                         onClick={() =>
                                                             setChatPayload(
@@ -286,18 +252,17 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                 })
                             }
                             placeholder={
-                                theme?.chatWindow?.chatInput?.placeholder ||
-                                defaultTheme.chatWindow.chatInput.placeholder
+                                merged.chatWindow.chatInput.placeholder
                             }
                             onKeyDown={handleKeyDown}
-                            theme={theme}
+                            theme={merged}
                         />
                         {loading ? (
-                            <Spinner theme={theme} />
+                            <Spinner theme={merged} />
                         ) : (
                             <SubmitButton
                                 onClick={() => sendChatPayload()}
-                                theme={theme}
+                                theme={merged}
                                 disabled={loading}
                             >
                                 <FiSendIcon />

@@ -7,10 +7,12 @@ import {
     useCallback,
     useMemo,
 } from "react";
+import { merge } from "lodash";
 import { ChatClient } from "../utils/api";
 import { ChatContextType } from "../types";
 import { IContextProvider } from "../interfaces";
 import { log } from "../utils/log";
+import defaultTheme from "../config/theme";
 
 const defaultChatContextValue: ChatContextType = {
     loading: false,
@@ -40,17 +42,17 @@ export default function ChatProvider({
     id: string;
     theme: any;
 }) {
+    const chatClient = new ChatClient(apiHost, id, theme);
     const chatInputRef = useRef<HTMLInputElement | null>(null);
     const chatboxRef = useRef<HTMLInputElement | null>(null);
     const [chatboxRefIsEmpty, setChatboxRefIsEmpty] = useState(true);
     const userInputRef = useRef<HTMLInputElement | null>(null);
     const [loading, setLoading] = useState(false);
     const [chatPayload, setChatPayload] = useState({
-        systemMessage: "You are a helpful assistant.",
         query: "",
-        temperature: 0,
     });
     const [messages, setMessages] = useState([{ role: "system", content: "" }]);
+    const [merged, setMerged] = useState(defaultTheme);
 
     const resetChat = useCallback(() => {
         if (chatboxRefIsEmpty) {
@@ -117,8 +119,7 @@ export default function ChatProvider({
         updatedMessages.push({ role: "user", content: chatPayload.query });
         const payload = { messages: updatedMessages };
 
-        const chatClient = new ChatClient(apiHost, "", theme);
-        chatClient.sendChatStreamMessage(id, payload, updateCallback, () =>
+        chatClient.sendChatStreamMessage(payload, updateCallback, () =>
             setLoading(false)
         );
     }, [apiHost, chatPayload, id, messages, theme, updateCallback]);
@@ -136,10 +137,26 @@ export default function ChatProvider({
         };
     }, [messages, userInputRef]);
 
+    useEffect(() => {
+        if (!theme) {
+            (async () => {
+                const res = await chatClient.getBot();
+                const mergedTheme = merge({}, merged, res.bot.theme);
+                setMerged(mergedTheme);
+                log("contexts.ChatContext.useEffect", mergedTheme);
+            })();
+        } else {
+            const mergedTheme = merge({}, merged, theme);
+            setMerged(mergedTheme);
+            log("contexts.ChatContext.useEffect", mergedTheme);
+        }
+    }, [theme]);
+
     return (
         <ChatContext.Provider
             value={useMemo(() => {
                 return {
+                    merged,
                     loading,
                     chatboxRef,
                     chatInputRef,
@@ -147,6 +164,7 @@ export default function ChatProvider({
                     messages,
                     chatPayload,
                     chatboxRefIsEmpty,
+                    setMerged,
                     resetChat,
                     setMessages,
                     setLoading,
@@ -156,6 +174,7 @@ export default function ChatProvider({
                     setChatboxRefIsEmpty,
                 };
             }, [
+                merged,
                 loading,
                 chatboxRef,
                 chatInputRef,

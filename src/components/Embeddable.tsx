@@ -7,7 +7,7 @@ import { BotConfig } from '../interfaces';
 const Embeddable: React.FC<BotConfig> = ({ apiHost, id, theme }) => {
     return (
         <ChatProvider apiHost={apiHost} id={id} theme={theme}>
-            <EmbedChat theme={theme} />
+            <EmbedChat />
         </ChatProvider>
     );
 };
