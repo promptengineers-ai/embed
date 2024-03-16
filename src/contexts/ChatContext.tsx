@@ -136,14 +136,6 @@ export default function ChatProvider({
         };
     }, [messages, userInputRef]);
 
-    // useEffect(() => {
-    // 	if (messages.length > 1) {
-    // 		setChatboxRefIsEmpty(false);
-    // 	} else {
-    // 		setChatboxRefIsEmpty(true);
-    // 	}
-    // }, [messages]);
-
     return (
         <ChatContext.Provider
             value={useMemo(() => {
