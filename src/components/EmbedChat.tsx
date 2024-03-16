@@ -101,8 +101,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                 {isChatOpen ? (
                     <AiOutlineCloseIcon
                         style={{
-                            padding:
-                                theme?.button?.padding,
+                            padding: theme?.button?.padding,
                             fontSize:
                                 theme?.button?.fontSize ||
                                 defaultTheme.button.icon.fontSize,
@@ -132,7 +131,7 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
             {isChatOpen && (
                 <ChatWindow theme={theme}>
                     <ControlButtons>
-                        {messages.length > 0 && (
+                        {!chatboxRefIsEmpty && (
                             <ControlButton onClick={resetChat}>
                                 <ClearIcon />
                             </ControlButton>
