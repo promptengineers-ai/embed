@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import Embeddable from "./components/Embeddable";
 import { BotConfig } from "./interfaces";
 import { log } from "./utils/log";
+import ChatProvider from "./contexts/ChatContext";
 
 declare global {
     interface Window {
@@ -20,5 +21,9 @@ window.Bot = (config: BotConfig) => {
 
     // Use React 18's createRoot API to render the widget inside the new div
     const root = createRoot(widgetContainer);
-    root.render(<Embeddable {...config} />);
+    root.render(
+        <ChatProvider id={config.id} apiHost={config.apiHost} theme={config.theme}>
+            <Embeddable {...config} />
+        </ChatProvider>
+    );
 };
